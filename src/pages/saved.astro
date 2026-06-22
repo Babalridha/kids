@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { CATEGORIES, AUDIOS } from '../data/mockData';
+---
+
+<Layout title="My Favorites - Bab Al-Ridha Kids">
+  <div 
+    id="saved-page-container"
+    class="max-w-7xl mx-auto px-6 space-y-20 py-16 pb-48"
+    data-categories={JSON.stringify(CATEGORIES)}
+    data-audios={JSON.stringify(AUDIOS)}
+  >
+    <!-- Header -->
+    <div class="text-center space-y-6 reveal">
+      <h1 class="text-5xl md:text-7xl font-black text-stone-800 dark:text-stone-100">My Favorites</h1>
+      <p class="text-xl text-stone-500 dark:text-stone-400 font-medium">Your collection of loved stories and series.</p>
+    </div>
+
+    <!-- Empty State -->
+    <div id="saved-empty-state" class="text-center py-24 bg-cream-100 dark:bg-coffee-800 rounded-[4rem] border-4 border-dashed border-cream-200 dark:border-coffee-700 reveal hidden">
+       <span class="mx-auto text-stone-200 dark:text-stone-700 mb-6 block">
+         <Icon name="Heart" size={64} fill="currentColor" />
+       </span>
+       <p class="text-2xl font-black text-stone-400">No favorites yet!</p>
+       <a href="/" class="inline-block mt-8 px-10 py-5 bg-accent-light dark:bg-accent-dark text-stone-900 rounded-full font-black hover:scale-105 transition-transform">Start Exploring</a>
+    </div>
+
+    <!-- Content Sections -->
+    <div id="saved-content-wrapper" class="space-y-20 hidden">
+      <!-- Favorite Series -->
+      <section id="saved-series-section" class="space-y-10 reveal hidden">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-stone-400"><Icon name="Layout" /></span>
+            <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">Favorite Series</h2>
+          </div>
+          <button 
+            id="clear-series-btn"
+            class="flex items-center gap-2 text-stone-400 hover:text-red-500 font-bold transition-colors"
+          >
+            <Icon name="Trash2" size={18} /> Clear All
+          </button>
+        </div>
+        <div id="saved-series-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <!-- JS will render cards here -->
+        </div>
+      </section>
+
+      <!-- Saved Stories -->
+      <section id="saved-audios-section" class="space-y-10 reveal hidden">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-stone-400"><Icon name="Music" /></span>
+            <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">Saved Stories</h2>
+          </div>
+          <button 
+            id="clear-audios-btn"
+            class="flex items-center gap-2 text-stone-400 hover:text-red-500 font-bold transition-colors"
+          >
+            <Icon name="Trash2" size={18} /> Clear All
+          </button>
+        </div>
+        <div id="saved-audios-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- JS will render cards here -->
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const getImgSrc = (img: any) => typeof img === 'string' ? img : (img?.src || '');
+
+  const renderSavedItems = () => {
+    const container = document.getElementById('saved-page-container');
+    if (!container) return;
+
+    const categories = JSON.parse(container.getAttribute('data-categories') || '[]');
+    const audios = JSON.parse(container.getAttribute('data-audios') || '[]');
+
+    const emptyState = document.getElementById('saved-empty-state');
+    const contentWrapper = document.getElementById('saved-content-wrapper');
+    const seriesSection = document.getElementById('saved-series-section');
+    const seriesGrid = document.getElementById('saved-series-grid');
+    const audiosSection = document.getElementById('saved-audios-section');
+    const audiosGrid = document.getElementById('saved-audios-grid');
+
+    if (!emptyState || !contentWrapper) return;
+
+    // Load from localstorage
+    let savedSeries = [];
+    let savedAudios = [];
+    try {
+      savedSeries = JSON.parse(localStorage.getItem('saved-series') || '[]');
+    } catch(e) {}
+    try {
+      savedAudios = JSON.parse(localStorage.getItem('saved-audios') || '[]');
+    } catch(e) {}
+
+    const likedSeries = categories.filter(c => savedSeries.includes(c.name));
+    const likedAudios = audios.filter(a => savedAudios.includes(a.id));
+
+    const isEmpty = likedSeries.length === 0 && likedAudios.length === 0;
+
+    if (isEmpty) {
+      emptyState.classList.remove('hidden');
+      contentWrapper.classList.add('hidden');
+      return;
+    }
+
+    emptyState.classList.add('hidden');
+    contentWrapper.classList.remove('hidden');
+
+    // 1. Render Series
+    if (likedSeries.length > 0) {
+      seriesSection.classList.remove('hidden');
+      seriesGrid.innerHTML = '';
+      likedSeries.forEach(cat => {
+        const div = document.createElement('div');
+        div.className = "group relative aspect-[4/5] rounded-[3rem] overflow-hidden border-4 border-white dark:border-coffee-800 shadow-xl cursor-pointer";
+        div.innerHTML = `
+          <a href="/category/${cat.name}" class="block w-full h-full">
+            <img src="${getImgSrc(cat.image)}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${cat.name}" />
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 text-white font-black leading-tight text-xl">
+               ${cat.name}
+            </div>
+          </a>
+          <button 
+            data-cat-name="${cat.name}"
+            class="remove-series-btn absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 z-10"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+          </button>
+        `;
+
+        // Bind delete button
+        const removeBtn = div.querySelector('.remove-series-btn');
+        removeBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const name = removeBtn.getAttribute('data-cat-name');
+          let current = JSON.parse(localStorage.getItem('saved-series') || '[]');
+          current = current.filter(x => x !== name);
+          localStorage.setItem('saved-series', JSON.stringify(current));
+          renderSavedItems();
+        });
+
+        seriesGrid.appendChild(div);
+      });
+    } else {
+      seriesSection.classList.add('hidden');
+    }
+
+    // 2. Render Audios
+    if (likedAudios.length > 0) {
+      audiosSection.classList.remove('hidden');
+      audiosGrid.innerHTML = '';
+      likedAudios.forEach(audio => {
+        const div = document.createElement('div');
+        div.className = "group relative space-y-4 cursor-pointer";
+        div.innerHTML = `
+          <div class="relative aspect-square rounded-[3rem] overflow-hidden shadow-xl border-4 border-white dark:border-coffee-800 group-hover:-translate-y-2 transition-all">
+             <img src="${getImgSrc(audio.thumbnail)}" class="w-full h-full object-cover" alt="${audio.title}" />
+             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+             </div>
+          </div>
+          <button 
+            data-audio-id="${audio.id}"
+            class="remove-audio-btn absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 z-10"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+          </button>
+          <div class="text-center">
+             <h3 class="text-lg font-black text-stone-800 dark:text-stone-100 group-hover:text-accent-dark transition-colors">${audio.title}</h3>
+             <p class="text-xs text-stone-400 font-bold uppercase">${audio.category.split(' ')[0]}</p>
+          </div>
+        `;
+
+        // Card navigation handler
+        div.addEventListener('click', (e) => {
+          const removeBtn = div.querySelector('.remove-audio-btn');
+          if (removeBtn && removeBtn.contains(e.target)) return;
+          window.location.assign(`/audio/${audio.id}`);
+        });
+
+        // Bind delete button
+        const removeBtn = div.querySelector('.remove-audio-btn');
+        removeBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = removeBtn.getAttribute('data-audio-id');
+          let current = JSON.parse(localStorage.getItem('saved-audios') || '[]');
+          current = current.filter(x => x !== id);
+          localStorage.setItem('saved-audios', JSON.stringify(current));
+          renderSavedItems();
+        });
+
+        audiosGrid.appendChild(div);
+      });
+    } else {
+      audiosSection.classList.add('hidden');
+    }
+  };
+
+  // Clear all button triggers
+  const initButtons = () => {
+    document.getElementById('clear-series-btn')?.addEventListener('click', () => {
+      localStorage.setItem('saved-series', '[]');
+      renderSavedItems();
+    });
+    document.getElementById('clear-audios-btn')?.addEventListener('click', () => {
+      localStorage.setItem('saved-audios', '[]');
+      renderSavedItems();
+    });
+  };
+
+  document.addEventListener('astro:page-load', () => {
+    renderSavedItems();
+    initButtons();
+  });
+</script>

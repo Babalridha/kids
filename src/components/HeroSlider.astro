@@ -1,0 +1,253 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { AUDIOS } from '../data/mockData';
+import img_g5h07y7msf8 from '../assets/images/g5h07y7msf8.jpg';
+import img_6wHDjoVKPwk from '../assets/images/6wHDjoVKPwk.jpg';
+import img_X0ghHtWoM8s from '../assets/images/X0ghHtWoM8s.jpg';
+
+const HERO_ITEMS = [
+  {
+    title: "Explore the Wonders of Islamic History",
+    subtitle: "Featured Series",
+    description: "Join Prophet Yunus on his incredible journey. Engaging audio stories designed for little hearts and big imaginations.",
+    image: img_g5h07y7msf8,
+    audio: AUDIOS[4] || AUDIOS[0] // Ramadhan-1 or Mawla-ali-1
+  },
+  {
+    title: "Discover the Brave Hero of Karbala",
+    subtitle: "Nana's Stories",
+    description: "Beautifully narrated glimpses of bravery and faith for our young generation to grow and learn from.",
+    image: img_6wHDjoVKPwk,
+    audio: AUDIOS[1] || AUDIOS[0]
+  },
+  {
+    title: "The Mother of Believers: Bibi Khadija",
+    subtitle: "Heavenly Ladies",
+    description: "Learn about the incredible sacrifice and love of the greatest woman of Islam.",
+    image: img_X0ghHtWoM8s,
+    audio: AUDIOS[2] || AUDIOS[0]
+  }
+];
+---
+
+<section 
+  id="hero-slider"
+  class="relative h-[600px] w-full rounded-[3rem] border-4 border-white dark:border-coffee-900 overflow-hidden flex flex-col md:flex-row items-center transition-all duration-1000 shadow-xl"
+  style="background-color: rgba(237, 220, 197, 0.15);"
+  data-hero-items={JSON.stringify(HERO_ITEMS)}
+>
+  <!-- Background Image for Mobile Only -->
+  <div class="absolute inset-0 z-0 md:hidden flex items-center justify-center">
+    <Image id="hero-bg-mobile" src={HERO_ITEMS[0].image} class="w-full h-full object-cover" alt="Hero BG Mobile" />
+    <div class="absolute inset-0 bg-cream-50/90 dark:bg-coffee-900/80 backdrop-blur-[6px]" />
+  </div>
+
+  <!-- Decorative Blur Glows (matching dominant color) -->
+  <div class="absolute inset-0 pointer-events-none z-0">
+    <div 
+      id="hero-glow-1"
+      class="absolute top-0 left-0 w-[45%] h-[45%] blur-[120px] rounded-full transition-all duration-1000 opacity-30" 
+      style="background-color: #eddcc5;" 
+    />
+    <div 
+      id="hero-glow-2"
+      class="absolute bottom-0 right-0 w-[45%] h-[45%] blur-[120px] rounded-full transition-all duration-1000 opacity-20" 
+      style="background-color: #eddcc5;" 
+    />
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative flex-1 p-8 md:p-20 flex flex-col items-center md:items-start text-center md:text-left z-10 space-y-8 justify-center h-full">
+    <div class="space-y-4">
+      <span 
+        id="hero-subtitle"
+        class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest transition-all"
+        style="background-color: rgba(237, 220, 197, 0.25); color: #a16207;"
+      >
+        {HERO_ITEMS[0].subtitle}
+      </span>
+      <h1 id="hero-title" class="text-3xl md:text-7xl font-black text-stone-800 dark:text-stone-100 leading-[1.1] transition-all">
+        {HERO_ITEMS[0].title}
+      </h1>
+      <p id="hero-description" class="text-base md:text-xl text-stone-500 dark:text-stone-400 font-medium max-w-lg mx-auto md:mx-0 leading-relaxed transition-all">
+        {HERO_ITEMS[0].description}
+      </p>
+    </div>
+    
+    <div class="flex justify-center md:justify-start gap-4">
+      <button 
+        id="hero-listen-btn"
+        class="flex items-center gap-3 px-10 py-5 text-stone-900 font-black rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg"
+        style="background-color: #eddcc5;"
+      >
+        <Icon name="Play" size={24} fill="currentColor" /> Listen Now
+      </button>
+    </div>
+
+    <!-- Indicators -->
+    <div class="flex items-center justify-center md:justify-start gap-3 pt-6">
+      {HERO_ITEMS.map((_, i) => (
+        <button 
+          class="hero-indicator h-2 transition-all duration-500 rounded-full w-2"
+          data-slide-index={i}
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Desktop Feature Image -->
+  <div class="relative flex-1 hidden md:flex justify-end h-full p-10 z-10">
+     <Image 
+      id="hero-image"
+      src={HERO_ITEMS[0].image} 
+      class="h-full w-full object-cover rounded-[3rem] shadow-2xl transition-all duration-700 border-4 border-white/40" 
+      alt="Featured Thumbnail" 
+     />
+     
+     <div class="absolute bottom-16 right-16 flex gap-4">
+        <button id="hero-prev-btn" class="w-12 h-12 bg-white/90 dark:bg-stone-800/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all text-stone-800 dark:text-stone-100">
+          <Icon name="ChevronLeft" size={24} />
+        </button>
+        <button id="hero-next-btn" class="w-12 h-12 bg-white/90 dark:bg-stone-800/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all text-stone-800 dark:text-stone-100">
+          <Icon name="ChevronRight" size={24} />
+        </button>
+     </div>
+  </div>
+</section>
+
+<script>
+  import { getDominantColor } from '../utils/colorExtractor';
+
+  const setupHeroSlider = () => {
+    const slider = document.getElementById('hero-slider');
+    if (!slider) return;
+
+    const heroItems = JSON.parse(slider.getAttribute('data-hero-items') || '[]');
+    if (heroItems.length === 0) return;
+
+    let current = 0;
+    let dominantColor = '#eddcc5';
+    let timer = null;
+
+    const bgMobile = document.getElementById('hero-bg-mobile') as HTMLImageElement;
+    const glow1 = document.getElementById('hero-glow-1');
+    const glow2 = document.getElementById('hero-glow-2');
+    const subtitle = document.getElementById('hero-subtitle');
+    const title = document.getElementById('hero-title');
+    const description = document.getElementById('hero-description');
+    const listenBtn = document.getElementById('hero-listen-btn');
+    const heroImage = document.getElementById('hero-image') as HTMLImageElement;
+    
+    const indicators = document.querySelectorAll('.hero-indicator');
+    const prevBtn = document.getElementById('hero-prev-btn');
+    const nextBtn = document.getElementById('hero-next-btn');
+
+    const getImgSrc = (img: any) => typeof img === 'string' ? img : (img?.src || '');
+
+    const updateSlide = () => {
+      const item = heroItems[current];
+      
+      // Update text details
+      if (subtitle) subtitle.textContent = item.subtitle;
+      if (title) title.textContent = item.title;
+      if (description) description.textContent = item.description;
+      if (heroImage) heroImage.src = getImgSrc(item.image);
+      if (bgMobile) bgMobile.src = getImgSrc(item.image);
+
+      // Reset indicators classes
+      indicators.forEach((el, idx) => {
+        if (idx === current) {
+          el.classList.remove('bg-stone-300', 'dark:bg-stone-700', 'w-2');
+          el.classList.add('w-12');
+          (el as HTMLElement).style.backgroundColor = dominantColor;
+        } else {
+          el.classList.add('bg-stone-300', 'dark:bg-stone-700', 'w-2');
+          el.classList.remove('w-12');
+          (el as HTMLElement).style.backgroundColor = '';
+        }
+      });
+
+      const getContrastColor = (hex) => {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        if (luminance > 0.5) {
+          const dr = Math.max(0, Math.round(r * 0.45));
+          const dg = Math.max(0, Math.round(g * 0.45));
+          const db = Math.max(0, Math.round(b * 0.45));
+          return "#" + ((1 << 24) + (dr << 16) + (dg << 8) + db).toString(16).slice(1);
+        }
+        return hex;
+      };
+
+      // Fetch colors and animate
+      getDominantColor(getImgSrc(item.image)).then(color => {
+        dominantColor = color;
+        const contrastColor = getContrastColor(color);
+        slider.style.backgroundColor = color + '15';
+        if (glow1) glow1.style.backgroundColor = color;
+        if (glow2) glow2.style.backgroundColor = color;
+        
+        if (subtitle) {
+          subtitle.style.backgroundColor = color + '25';
+          subtitle.style.color = contrastColor;
+        }
+        if (listenBtn) listenBtn.style.backgroundColor = color;
+
+        // Apply background color to active indicator
+        const activeIndicator = document.querySelector(`.hero-indicator[data-slide-index="${current}"]`) as HTMLElement;
+        if (activeIndicator) activeIndicator.style.backgroundColor = contrastColor;
+      });
+    };
+
+    const nextSlide = () => {
+      current = (current + 1) % heroItems.length;
+      updateSlide();
+    };
+
+    const prevSlide = () => {
+      current = (current - 1 + heroItems.length) % heroItems.length;
+      updateSlide();
+    };
+
+    // Setup timer
+    const resetTimer = () => {
+      if (timer) clearInterval(timer);
+      timer = setInterval(nextSlide, 8000);
+    };
+
+    prevBtn?.addEventListener('click', () => {
+      prevSlide();
+      resetTimer();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      nextSlide();
+      resetTimer();
+    });
+
+    indicators.forEach((el, idx) => {
+      el.addEventListener('click', () => {
+        current = idx;
+        updateSlide();
+        resetTimer();
+      });
+    });
+
+    // Listen button click event
+    listenBtn?.addEventListener('click', () => {
+      const activeAudio = heroItems[current].audio;
+      if (activeAudio) {
+        window.dispatchEvent(new CustomEvent('play-audio', { detail: activeAudio }));
+      }
+    });
+
+    // Initialize first slide
+    updateSlide();
+    resetTimer();
+  };
+
+  document.addEventListener('astro:page-load', setupHeroSlider);
+</script>

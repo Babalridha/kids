@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout title="About Us - Bab Al-Ridha Kids">
+  <div class="max-w-5xl mx-auto px-6 space-y-32 py-24 pb-48">
+    <!-- Hero Section -->
+    <section class="text-center space-y-10">
+      <div class="inline-flex items-center gap-2 px-6 py-2 bg-accent-light/50 dark:bg-accent-dark/10 rounded-full text-stone-700 dark:text-accent-dark font-black text-sm uppercase tracking-widest border border-accent-light dark:border-coffee-700">
+        Our Mission
+      </div>
+      <h1 class="text-6xl md:text-8xl font-black text-stone-800 dark:text-stone-100 leading-[1.1] tracking-tighter">
+        Nurturing the <br/> <span class="text-accent-light dark:text-accent-dark">Generation</span> of Tomorrow
+      </h1>
+      <p class="text-2xl text-stone-500 dark:text-stone-400 font-medium max-w-3xl mx-auto leading-relaxed">
+        Bab Al-Ridha Kids is more than just a media platform. We are a global initiative dedicated to providing a high-quality Islamic alternative for the children of the Awaited Imam (ajtf).
+      </p>
+    </section>
+
+    <!-- Grid of Values -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="p-16 bg-cream-100 dark:bg-coffee-800 rounded-[4rem] border-4 border-white dark:border-stone-900 space-y-8 shadow-xl transition-transform hover:-translate-y-2">
+        <span class="text-pink-500"><Icon name="Heart" size={64} strokeWidth={2.5} /></span>
+        <h3 class="text-3xl font-black text-stone-800 dark:text-stone-100">Values & Manners</h3>
+        <p class="text-xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed">
+          We focus on the Akhlaq (manners) of the Prophet (s) and his Family. Our stories aren't just entertainment—they are seeds of character planted in fertile young minds.
+        </p>
+      </div>
+      <div class="p-16 bg-accent-light/30 dark:bg-coffee-800 rounded-[4rem] border-4 border-white dark:border-stone-900 space-y-8 shadow-xl transition-transform hover:-translate-y-2">
+        <span class="text-amber-500"><Icon name="Brain" size={64} strokeWidth={2.5} /></span>
+        <h3 class="text-3xl font-black text-stone-800 dark:text-stone-100">Holistic Learning</h3>
+        <p class="text-xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed">
+          Through <a href="https://onlinelearning.babalridha.com" class="text-accent-light dark:text-accent-dark underline decoration-wavy">onlinelearning.babalridha.com</a>, we offer structured curriculums that combine spiritual growth with intellectual discovery.
+        </p>
+      </div>
+      <div class="p-16 bg-accent-light/20 dark:bg-coffee-800 rounded-[4rem] border-4 border-white dark:border-stone-900 space-y-8 shadow-xl transition-transform hover:-translate-y-2">
+        <span class="text-emerald-500"><Icon name="ShieldCheck" size={64} strokeWidth={2.5} /></span>
+        <h3 class="text-3xl font-black text-stone-800 dark:text-stone-100">Safe Space</h3>
+        <p class="text-xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed">
+          In an era of unfiltered digital noise, we provide a sanctuary. Our content is 100% Halal, educational, and vetted by scholars to ensure purity and accuracy.
+        </p>
+      </div>
+      <div class="p-16 bg-accent-light/10 dark:bg-coffee-800 rounded-[4rem] border-4 border-white dark:border-stone-900 space-y-8 shadow-xl transition-transform hover:-translate-y-2">
+        <span class="text-indigo-500"><Icon name="Globe" size={64} strokeWidth={2.5} /></span>
+        <h3 class="text-3xl font-black text-stone-800 dark:text-stone-100">Global Community</h3>
+        <p class="text-xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed">
+          Our reach spans continents. From Qom to London, New York to Sydney, we are building a united family of young hearts bound by the love of Ahlulbayt (as).
+        </p>
+      </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="bg-stone-900 dark:bg-black rounded-[5rem] p-16 md:p-32 text-center text-white relative overflow-hidden shadow-2xl">
+       <div class="absolute top-0 right-0 w-96 h-96 bg-accent-light/10 blur-[150px] rounded-full"></div>
+       <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-dark/5 blur-[150px] rounded-full"></div>
+       <div class="relative z-10 space-y-12">
+          <h2 class="text-4xl md:text-6xl font-black italic">"Our children are the treasures of the future."</h2>
+          <p class="text-xl md:text-2xl font-bold text-stone-400 max-w-2xl mx-auto">
+            We invite you to join us in this noble mission. Visit <a href="https://babalridha.com" class="text-accent-dark underline">babalridha.com</a> to explore our full range of books, apparel, and educational resources.
+          </p>
+       </div>
+    </section>
+  </div>
+</Layout>

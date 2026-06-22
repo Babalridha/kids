@@ -1,0 +1,181 @@
+---
+import Icon from './Icon.astro';
+import { AUDIOS } from '../data/mockData';
+---
+
+<div id="search-modal" class="fixed inset-0 z-[150] flex items-start justify-center pt-10 md:pt-20 px-4 hidden" data-audios={JSON.stringify(AUDIOS)}>
+  <div id="search-backdrop" class="absolute inset-0 bg-stone-900/60 backdrop-blur-md"></div>
+  
+  <div class="relative w-full max-w-2xl bg-cream-50 dark:bg-coffee-900 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border-4 border-white dark:border-coffee-800 overflow-hidden animate-slide-down">
+    <!-- Header -->
+    <div class="p-4 md:p-6 border-b border-cream-200 dark:border-coffee-800 flex items-center gap-4">
+      <div class="text-stone-400"><Icon name="Search" size={24} /></div>
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search series or stories..."
+        class="flex-grow bg-transparent border-none outline-none text-lg md:text-xl font-bold text-stone-800 dark:text-white placeholder:text-stone-300 dark:placeholder:text-stone-500"
+      />
+      <button id="close-search-btn" class="p-2 text-stone-400 hover:bg-cream-100 dark:hover:bg-coffee-800 rounded-xl transition-colors">
+        <Icon name="X" size={24} />
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div id="search-modal-body" class="max-h-[60vh] overflow-y-auto p-4 custom-scrollbar">
+      <!-- Will contain dynamic content -->
+      <div id="search-suggestions" class="py-8 text-center space-y-4">
+        <p class="text-stone-400 dark:text-stone-500 font-bold">Try searching for:</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          {['Mawla Ali', 'Fatima', 'Karbala', 'Ramadhan'].map(tag => (
+            <button class="suggestion-tag px-4 py-2 bg-cream-100 dark:bg-coffee-800 text-stone-600 dark:text-stone-300 rounded-full text-sm font-bold hover:bg-cream-200 dark:hover:bg-coffee-700 transition-colors" data-tag={tag}>
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div id="search-results" class="hidden space-y-2"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const getImgSrc = (img: any) => typeof img === 'string' ? img : (img?.src || '');
+
+  const initSearch = () => {
+    const modal = document.getElementById('search-modal');
+    if (!modal) return;
+
+    const audios = JSON.parse(modal.getAttribute('data-audios') || '[]');
+    const backdrop = document.getElementById('search-backdrop');
+    const closeBtn = document.getElementById('close-search-btn');
+    const input = document.getElementById('search-input') as HTMLInputElement;
+    const suggestions = document.getElementById('search-suggestions');
+    const resultsContainer = document.getElementById('search-results');
+
+    const openModal = () => {
+      modal.classList.remove('hidden');
+      input.value = '';
+      suggestions.classList.remove('hidden');
+      resultsContainer.classList.add('hidden');
+      resultsContainer.innerHTML = '';
+      setTimeout(() => input.focus(), 50);
+    };
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      input.value = '';
+    };
+
+    // Listen for custom open event
+    window.addEventListener('open-search', openModal);
+
+    backdrop?.addEventListener('click', closeModal);
+    closeBtn?.addEventListener('click', closeModal);
+
+    // Escape key listener
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    const handleSearch = (query) => {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        suggestions.classList.remove('hidden');
+        resultsContainer.classList.add('hidden');
+        resultsContainer.innerHTML = '';
+        return;
+      }
+
+      suggestions.classList.add('hidden');
+      resultsContainer.classList.remove('hidden');
+
+      const filtered = audios.filter(audio => 
+        audio.title.toLowerCase().includes(q) ||
+        audio.category.toLowerCase().includes(q) ||
+        audio.description.toLowerCase().includes(q) ||
+        (audio.arabicTitle && audio.arabicTitle.toLowerCase().includes(q))
+      );
+
+      resultsContainer.innerHTML = '';
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="text-center py-12">
+            <span class="text-4xl mb-4 block">🔍</span>
+            <p class="text-stone-500 dark:text-stone-400 font-bold">No results found for "${query}"</p>
+          </div>
+        `;
+        return;
+      }
+
+      const countP = document.createElement('p');
+      countP.className = "px-4 text-[10px] font-black text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-4";
+      countP.textContent = `Found ${filtered.length} results`;
+      resultsContainer.appendChild(countP);
+
+      filtered.forEach(audio => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = "group flex items-center gap-4 p-3 md:p-4 hover:bg-cream-100 dark:hover:bg-coffee-800 rounded-2xl md:rounded-3xl transition-all";
+        itemDiv.innerHTML = `
+          <div class="w-16 h-12 md:w-20 md:h-14 rounded-xl overflow-hidden shadow-sm shrink-0">
+            <img src="${getImgSrc(audio.thumbnail)}" class="w-full h-full object-cover" alt="${audio.title}" />
+          </div>
+          <div class="flex-grow min-w-0">
+            <a 
+              href="/audio/${audio.id}" 
+              class="text-sm md:text-lg font-black text-stone-800 dark:text-white leading-tight truncate block group-hover:text-stone-900 dark:group-hover:text-accent-dark"
+            >
+              ${audio.title}
+            </a>
+            <p class="text-[10px] md:text-xs font-bold text-stone-400 dark:text-stone-500 uppercase">${audio.category}</p>
+          </div>
+          <button 
+            type="button"
+            class="play-result-btn p-2 md:p-3 bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 rounded-xl md:rounded-2xl shadow-sm hover:scale-110 transition-transform"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          </button>
+        `;
+
+        // Play Button Click handler
+        const playBtn = itemDiv.querySelector('.play-result-btn');
+        playBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.dispatchEvent(new CustomEvent('play-audio', { detail: audio }));
+          closeModal();
+        });
+
+        // Close on navigation
+        const link = itemDiv.querySelector('a');
+        link?.addEventListener('click', () => {
+          closeModal();
+        });
+
+        resultsContainer.appendChild(itemDiv);
+      });
+    };
+
+    input?.addEventListener('input', (e) => {
+      handleSearch(e.target.value);
+    });
+
+    // Tag button listeners
+    const tags = document.querySelectorAll('.suggestion-tag');
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        const query = tag.getAttribute('data-tag') || '';
+        if (input) {
+          input.value = query;
+          handleSearch(query);
+        }
+      });
+    });
+  };
+
+  // Setup on page load
+  document.addEventListener('astro:page-load', initSearch);
+</script>

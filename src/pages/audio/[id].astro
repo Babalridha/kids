@@ -1,0 +1,314 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { AUDIOS } from '../../data/mockData';
+
+export async function getStaticPaths() {
+  return AUDIOS.map(audio => ({
+    params: { id: audio.id }
+  }));
+}
+
+const { id } = Astro.params;
+const audio = AUDIOS.find(a => a.id === id);
+
+if (!audio) {
+  return Astro.redirect('/404');
+}
+
+const dominantColor = audio.dominantColor;
+const otherEpisodes = AUDIOS.filter(a => a.id !== audio.id).slice(0, 3);
+
+function getContrastColor(hex: string) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  if (luminance > 0.5) {
+    const dr = Math.max(0, Math.round(r * 0.45));
+    const dg = Math.max(0, Math.round(g * 0.45));
+    const db = Math.max(0, Math.round(b * 0.45));
+    return "#" + ((1 << 24) + (dr << 16) + (dg << 8) + db).toString(16).slice(1);
+  }
+  return hex;
+}
+
+const contrastColor = getContrastColor(dominantColor);
+---
+
+<Layout title={`${audio.title} - Bab Al-Ridha Kids`}>
+  <div 
+    id="audio-detail-container"
+    class="min-h-screen pt-4 pb-48 transition-colors duration-500"
+    data-audio-id={audio.id}
+    data-dominant-color={dominantColor}
+    data-contrast-color={contrastColor}
+    data-audio-json={JSON.stringify(audio)}
+  >
+    <div class="max-w-5xl mx-auto px-6 space-y-12 md:space-y-20">
+      
+      <!-- Navigation / Header -->
+      <div class="flex items-center justify-between">
+        <button onclick="window.history.back()" class="w-12 h-12 bg-white dark:bg-stone-900 rounded-full flex items-center justify-center text-stone-500 dark:text-stone-100 shadow-sm border border-cream-200 dark:border-coffee-800 hover:scale-110 transition-transform">
+          <Icon name="ArrowLeft" size={24} />
+        </button>
+        <div class="flex items-center gap-3">
+          <button 
+            id="share-btn"
+            class="w-12 h-12 bg-white dark:bg-stone-900 rounded-full flex items-center justify-center text-stone-500 dark:text-stone-100 shadow-sm border border-cream-200 dark:border-coffee-800 transition-colors hover:text-stone-800 dark:hover:text-white"
+          >
+            <Icon name="Share2" size={20} />
+          </button>
+          <button 
+            id="like-btn"
+            class="w-12 h-12 bg-white dark:bg-stone-900 rounded-full flex items-center justify-center shadow-sm border border-cream-200 dark:border-coffee-800 transition-all text-stone-400"
+          >
+            <span id="heart-like-empty"><Icon name="Heart" size={20} /></span>
+            <span id="heart-like-filled" class="hidden text-pink-500"><Icon name="Heart" size={20} fill="currentColor" /></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Focal Point - Circular Layout -->
+      <div class="flex flex-col items-center text-center space-y-12">
+        <div class="relative group">
+           <!-- Dynamic Glow -->
+           <div 
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] rounded-full -z-10 blur-[100px] opacity-30 group-hover:opacity-50 transition-opacity duration-1000" 
+            style={`background-color: ${dominantColor}`}
+           ></div>
+           <div 
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] border-4 border-dashed rounded-full animate-[spin_20s_linear_infinite]" 
+            style={`border-color: ${dominantColor}40`}
+           ></div>
+           
+           <div class="w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border-[16px] border-white dark:border-stone-900 relative z-10 transition-all duration-700 group-hover:scale-105">
+              <Image src={audio.thumbnail} class="w-full h-full object-cover" alt={audio.title} width={384} height={384} />
+              
+              <!-- Music waves overlay (toggled client-side) -->
+              <div id="playing-waves-overlay" class="absolute inset-0 bg-stone-900/40 flex items-center justify-center backdrop-blur-[2px] hidden">
+                 <div class="flex gap-2">
+                   {[1, 2, 3].map(i => (
+                     <div 
+                       class="w-2 h-12 bg-white rounded-full animate-bounce" 
+                       style={`animation-delay: ${i * 0.2}s`}
+                     />
+                   ))}
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div class="space-y-6 max-w-3xl">
+          <div 
+            class="inline-flex items-center gap-2 px-6 py-2 rounded-full text-sm font-black uppercase tracking-widest border"
+            style={`background-color: ${dominantColor}20; color: ${contrastColor}; border-color: ${dominantColor}30`}
+          >
+             📖 {audio.category}
+          </div>
+          <h1 class="text-4xl md:text-7xl font-black text-stone-800 dark:text-stone-100 leading-[1.1] tracking-tight">
+            {audio.title}
+          </h1>
+          <p class="text-xl md:text-2xl text-stone-500 dark:text-stone-400 font-medium leading-relaxed max-w-2xl mx-auto">
+            {audio.description}
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-6">
+           <button 
+              id="details-play-btn"
+              class="flex items-center justify-center w-24 h-24 text-stone-900 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:scale-110 active:scale-95 transition-all animate-in zoom-in duration-500"
+              style={`background-color: ${dominantColor}`}
+           >
+              <!-- Show play or pause details -->
+              <span id="details-play-icon"><Icon name="Play" size={44} fill="currentColor" class="ml-1" /></span>
+              <span id="details-pause-icon" class="hidden">
+                <span class="flex gap-1">
+                  <span class="w-2 h-8 bg-stone-900 rounded-full"></span>
+                  <span class="w-2 h-8 bg-stone-900 rounded-full"></span>
+                </span>
+              </span>
+           </button>
+        </div>
+      </div>
+
+      <!-- More in this Series -->
+      <section class="space-y-10 pt-20">
+        <div class="flex items-center justify-between">
+          <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">Series Collection</h2>
+          <a 
+            href={`/category/${audio.category}`} 
+            class="font-black text-lg hover:text-stone-800 dark:hover:text-white transition-all underline underline-offset-8"
+            style={`text-decoration-color: ${dominantColor}`}
+          >
+            See All
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+           {otherEpisodes.map(item => (
+             <div 
+                data-audio-id={item.id}
+                data-audio-json={JSON.stringify(item)}
+                class="series-collection-card group bg-white dark:bg-stone-900 p-5 rounded-[3rem] flex items-center gap-5 cursor-pointer hover:shadow-2xl transition-all border-4 border-transparent hover:border-[var(--hover-color)] hover:bg-cream-100/30 dark:hover:bg-stone-900/50 group-hover:scale-105 active:scale-95"
+                style={`--hover-color: ${contrastColor};`}
+              >
+                <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 shadow-md">
+                  <Image src={item.thumbnail} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={item.title} width={64} height={64} />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h4 class="collection-title text-lg font-black truncate text-stone-800 dark:text-stone-100 group-hover:text-[var(--hover-color)] transition-colors" data-ep-id={item.id}>{item.title}</h4>
+                  <p class="text-xs text-stone-400 font-bold uppercase tracking-widest">Episode</p>
+                </div>
+                <button 
+                  class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors"
+                  style={`background-color: ${dominantColor}20; color: ${contrastColor}`}
+                >
+                  <Icon name="Play" size={16} fill="currentColor" />
+                </button>
+             </div>
+           ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const setupAudioDetailPage = () => {
+    const container = document.getElementById('audio-detail-container');
+    if (!container) return;
+
+    const audioId = container.getAttribute('data-audio-id');
+    const dominantColor = container.getAttribute('data-dominant-color');
+    const contrastColor = container.getAttribute('data-contrast-color') || '';
+    const audio = JSON.parse(container.getAttribute('data-audio-json') || '{}');
+
+    const shareBtn = document.getElementById('share-btn');
+    const likeBtn = document.getElementById('like-btn');
+    const likeEmpty = document.getElementById('heart-like-empty');
+    const likeFilled = document.getElementById('heart-like-filled');
+
+    const playBtn = document.getElementById('details-play-btn');
+    const playIcon = document.getElementById('details-play-icon');
+    const pauseIcon = document.getElementById('details-pause-icon');
+    const wavesOverlay = document.getElementById('playing-waves-overlay');
+
+    let isSaved = false;
+    let isActiveAndPlaying = false;
+
+    // 1. Check if saved in localStorage
+    const checkSaved = () => {
+      let saved = [];
+      try {
+        saved = JSON.parse(localStorage.getItem('saved-audios') || '[]');
+      } catch (e) {}
+
+      isSaved = saved.includes(audioId);
+      if (isSaved) {
+        likeBtn?.classList.remove('text-stone-400');
+        likeBtn?.classList.add('text-pink-500');
+        likeEmpty?.classList.add('hidden');
+        likeFilled?.classList.remove('hidden');
+      } else {
+        likeBtn?.classList.add('text-stone-400');
+        likeBtn?.classList.remove('text-pink-500');
+        likeEmpty?.classList.remove('hidden');
+        likeFilled?.classList.add('hidden');
+      }
+    };
+
+    likeBtn?.addEventListener('click', () => {
+      let saved = [];
+      try {
+        saved = JSON.parse(localStorage.getItem('saved-audios') || '[]');
+      } catch (e) {}
+
+      if (saved.includes(audioId)) {
+        saved = saved.filter(x => x !== audioId);
+      } else {
+        saved.push(audioId);
+      }
+      localStorage.setItem('saved-audios', JSON.stringify(saved));
+      checkSaved();
+    });
+
+    checkSaved(); // Run once
+
+    // 2. Share functionality
+    shareBtn?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    });
+
+    // 3. Audio Player state synchronization
+    const updatePlayerUI = (isPlayingState, currentAudio) => {
+      const isCurrent = currentAudio && currentAudio.id === audioId;
+      isActiveAndPlaying = isCurrent && isPlayingState;
+
+      if (isActiveAndPlaying) {
+        wavesOverlay?.classList.remove('hidden');
+        playIcon?.classList.add('hidden');
+        pauseIcon?.classList.remove('hidden');
+      } else {
+        wavesOverlay?.classList.add('hidden');
+        playIcon?.classList.remove('hidden');
+        pauseIcon?.classList.add('hidden');
+      }
+
+      // Also style other episodes highlight if they are active
+      const episodeTitles = document.querySelectorAll('.collection-title');
+      episodeTitles.forEach(title => {
+        const epId = title.getAttribute('data-ep-id');
+        if (currentAudio && currentAudio.id === epId) {
+          (title as HTMLElement).style.color = contrastColor;
+        } else {
+          (title as HTMLElement).style.color = '';
+        }
+      });
+    };
+
+    // Handler when audio player details change
+    window.addEventListener('audio-changed', (e: CustomEvent) => {
+      const { audio: playingAudio, isPlaying: isPlayingState } = e.detail;
+      updatePlayerUI(isPlayingState, playingAudio);
+    });
+
+    // Response from player state request
+    window.addEventListener('player-state-response', (e: CustomEvent) => {
+      const { currentAudio, isPlaying: isPlayingState } = e.detail;
+      updatePlayerUI(isPlayingState, currentAudio);
+    });
+
+    // Request player state on load
+    window.dispatchEvent(new CustomEvent('request-player-state'));
+
+    // Play/Pause button handler
+    playBtn?.addEventListener('click', () => {
+      if (isActiveAndPlaying) {
+        // Is currently active and playing: pause it
+        window.dispatchEvent(new CustomEvent('toggle-play'));
+      } else {
+        // Not active or not playing: play it
+        window.dispatchEvent(new CustomEvent('play-audio', { detail: audio }));
+      }
+    });
+
+    // Series collection cards click handler
+    const cards = document.querySelectorAll('.series-collection-card');
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const json = card.getAttribute('data-audio-json');
+        const id = card.getAttribute('data-audio-id');
+        if (json && id) {
+          const item = JSON.parse(json);
+          window.dispatchEvent(new CustomEvent('play-audio', { detail: item }));
+          window.location.assign(`/audio/${id}`);
+        }
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', setupAudioDetailPage);
+</script>

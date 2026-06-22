@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Scrolled Navbar State */
+#main-nav.scrolled {
+  height: 4rem; /* h-16 */
+  background-color: rgba(251, 249, 244, 0.7); /* bg-cream-50/70 */
+  border-color: rgba(237, 220, 197, 0.5); /* border-cream-200/50 */
+  backdrop-filter: blur(40px); /* backdrop-blur-2xl */
+  box-shadow: 0 1px 2px 0 rgba(28, 25, 23, 0.05); /* shadow-sm */
+}
+
+.dark #main-nav.scrolled {
+  background-color: rgba(27, 24, 23, 0.7); /* dark:bg-coffee-900/70 */
+  border-color: rgba(42, 36, 34, 0.5); /* dark:border-coffee-800/50 */
+}
+
+#main-nav.scrolled #nav-logo-container {
+  width: 2.25rem; /* w-9 */
+  height: 2.25rem; /* h-9 */
+}
+
+#main-nav.scrolled #nav-brand-text {
+  font-size: 1.125rem; /* text-lg */
+}
+
+#main-nav.scrolled .logo-block {
+  width: 1.25rem; /* w-5 */
+  height: 1.25rem; /* h-5 */
+  font-size: 0.7rem;
+}
+
+@theme {
+  --color-cream-50: #fbf9f4;
+  --color-cream-100: #f6eede;
+  --color-cream-200: #eddcc5;
+
+  --color-coffee-800: #2a2422;
+  --color-coffee-900: #1b1817;
+  --color-coffee-950: #0f0d0c;
+
+  --color-accent-light: #eddcc5;
+  --color-accent-dark: #f6eede;
+
+  --animate-blob: blob 7s infinite alternate;
+  --animate-bounce-slow: bounce-slow 5s ease-in-out infinite;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+  --animate-slide-down: slideDown 0.3s ease-out forwards;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideDown {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body {
+    background-color: #fbf9f4; /* Subtle cream */
+    color: #44403c; /* Stone 700 */
+}
+
+.dark body {
+    background-color: #1b1817; /* Very dark coffee brown */
+    color: #edeae8; /* Soft white/cream text */
+}
+
+.font-arabic {
+    font-family: 'Amiri', serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #d6d3d1;
+    border-radius: 20px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #44403c;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a29e;
+}
+
+.islamic-pattern {
+    background-image: url("https://www.transparenttextures.com/patterns/brick-wall.png");
+    background-attachment: fixed;
+    background-opacity: 0.03;
+}
+.dark .islamic-pattern {
+    background-opacity: 0.005; /* Much dimmer for dark mode */
+}
+
+.logo-block {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 0.4rem;
+    color: white;
+    font-weight: 900;
+    font-size: 0.9rem;
+    margin: 0 0.1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+:focus {
+  outline: 3px solid #eddcc5;
+  outline-offset: 4px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
