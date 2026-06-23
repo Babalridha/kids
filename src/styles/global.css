@@ -12,8 +12,8 @@
 }
 
 .dark #main-nav.scrolled {
-  background-color: rgba(27, 24, 23, 0.7); /* dark:bg-coffee-900/70 */
-  border-color: rgba(42, 36, 34, 0.5); /* dark:border-coffee-800/50 */
+  background-color: rgba(0, 21, 36, 0.7); /* dark:bg-coffee-900/70 */
+  border-color: rgba(13, 39, 63, 0.5); /* dark:border-coffee-800/50 */
 }
 
 #main-nav.scrolled #nav-logo-container {
@@ -36,9 +36,9 @@
   --color-cream-100: #f6eede;
   --color-cream-200: #eddcc5;
 
-  --color-coffee-800: #2a2422;
-  --color-coffee-900: #1b1817;
-  --color-coffee-950: #0f0d0c;
+  --color-coffee-800: #0d273f;
+  --color-coffee-900: #001524;
+  --color-coffee-950: #000c14;
 
   --color-accent-light: #eddcc5;
   --color-accent-dark: #f6eede;
@@ -71,17 +71,8 @@
 body {
     font-family: 'Quicksand', sans-serif;
     overflow-x: hidden;
-    transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-body {
-    background-color: #fbf9f4; /* Subtle cream */
-    color: #44403c; /* Stone 700 */
-}
-
-.dark body {
-    background-color: #1b1817; /* Very dark coffee brown */
-    color: #edeae8; /* Soft white/cream text */
+    background-color: #001524; /* Deep navy blue background */
+    color: #f0f4f8; /* Soft blue-white text */
 }
 
 .font-arabic {

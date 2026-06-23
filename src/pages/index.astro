@@ -53,7 +53,7 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
          {AUDIOS.map(audio => (
            <a href={`/audio/${audio.id}`} class="group flex flex-col items-center text-center space-y-6">
-              <div class="relative aspect-square w-full rounded-[3.5rem] overflow-hidden shadow-xl group-hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] transition-all duration-700 transform group-hover:-translate-y-3 border-8 border-white dark:border-stone-900">
+              <div class="relative aspect-square w-full rounded-[3.5rem] overflow-hidden shadow-xl group-hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] transition-all duration-700 transform group-hover:-translate-y-3 border-8 border-white dark:border-coffee-800">
                  <Image src={audio.thumbnail} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={audio.title} width={400} height={400} />
                  <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <div class="w-16 h-16 bg-white/30 backdrop-blur rounded-full flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-transform duration-500">
@@ -75,7 +75,7 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
     </section>
 
     <!-- Family Join Banner -->
-    <section class="relative overflow-hidden bg-cream-100 dark:bg-coffee-800 rounded-[4rem] p-12 md:p-24 text-center space-y-10 border-4 border-white dark:border-coffee-900 shadow-lg reveal">
+    <section class="relative overflow-hidden bg-cream-100 dark:bg-coffee-800 rounded-[4rem] p-12 md:p-24 text-center space-y-10 border-4 border-white dark:border-coffee-800 shadow-lg reveal">
       <div class="absolute -top-10 -left-10 w-40 h-40 bg-accent-light blur-3xl rounded-full opacity-30" />
       <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200 blur-3xl rounded-full opacity-30" />
       
@@ -89,7 +89,7 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
         <input 
           type="email" 
           placeholder="Your email address" 
-          class="w-full px-10 py-6 rounded-full bg-white dark:bg-stone-900 border-none outline-none shadow-sm text-stone-700 dark:text-stone-100 font-bold text-lg ring-4 ring-accent-light/50 dark:ring-accent-dark/5" 
+          class="w-full px-10 py-6 rounded-full bg-white dark:bg-coffee-900 border-none outline-none shadow-sm text-stone-700 dark:text-stone-100 font-bold text-lg ring-4 ring-accent-light/50 dark:ring-accent-dark/5" 
         />
         <button class="w-full sm:w-auto px-12 py-6 bg-accent-light dark:bg-accent-dark text-stone-900 font-black rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg uppercase">
           Subscribe

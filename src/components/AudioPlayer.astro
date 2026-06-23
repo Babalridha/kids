@@ -39,11 +39,11 @@ import Icon from './Icon.astro';
 
   <!-- Floating Capsule Player -->
   <div id="player-capsule-container" class="fixed bottom-8 left-0 right-0 z-[200] px-4 pointer-events-none hidden">
-    <div class="max-w-4xl mx-auto bg-white/95 dark:bg-stone-900/95 backdrop-blur-2xl rounded-full shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-cream-200 dark:border-coffee-800 p-3 flex items-center gap-4 md:gap-8 pointer-events-auto group relative animate-in slide-in-from-bottom duration-500">
+    <div class="max-w-4xl mx-auto bg-white/95 dark:bg-coffee-900/95 backdrop-blur-2xl rounded-full shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-cream-200 dark:border-coffee-800 p-3 flex items-center gap-4 md:gap-8 pointer-events-auto group relative animate-in slide-in-from-bottom duration-500">
       
       <!-- Progress bar with dynamic color -->
       <div id="player-progress-bar-container" class="absolute top-0 left-12 right-12 h-1 group-hover:h-2 transition-all cursor-pointer">
-         <div class="w-full h-full bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
+         <div class="w-full h-full bg-stone-100 dark:bg-coffee-800 rounded-full overflow-hidden">
             <div 
               id="player-progress-bar"
               class="h-full transition-all duration-300" 
@@ -100,7 +100,7 @@ import Icon from './Icon.astro';
         </button>
         <div class="flex items-center gap-3">
           <Icon name="Volume2" size={20} class="text-stone-400" />
-          <div class="w-20 h-1.5 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
+          <div class="w-20 h-1.5 bg-stone-100 dark:bg-coffee-800 rounded-full overflow-hidden">
              <div id="player-volume-bar" class="h-full w-3/4 transition-all" style="background-color: #eddcc5;" />
           </div>
         </div>

@@ -18,7 +18,7 @@ import { CATEGORIES } from '../data/mockData';
       {CATEGORIES.map(cat => (
         <a 
           href={`/category/${cat.name}`}
-          class="group relative h-[450px] rounded-[4rem] overflow-hidden border-8 border-white dark:border-stone-900 shadow-2xl hover:scale-[1.03] transition-all duration-500"
+          class="group relative h-[450px] rounded-[4rem] overflow-hidden border-8 border-white dark:border-coffee-800 shadow-2xl hover:scale-[1.03] transition-all duration-500"
         >
           <Image src={cat.image} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={cat.name} />
           <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent" />
