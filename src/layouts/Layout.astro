@@ -24,6 +24,16 @@ const currentLocale = Astro.currentLocale || 'en';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6VJZVZ69LN" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6VJZVZ69LN');
+    </script>
     
     <!-- Theme blocking script to prevent flash-of-light-mode & handle language redirect on root -->
     <script is:inline>
@@ -49,7 +59,7 @@ const currentLocale = Astro.currentLocale || 'en';
     
     <ClientRouter />
   </head>
-  <body class="transition-colors duration-500 min-h-screen flex flex-col islamic-pattern bg-cream-50 dark:bg-coffee-900">
+  <body class="transition-colors duration-500 min-h-screen flex flex-col bg-cream-50 dark:bg-coffee-900">
     <Navbar alternateUrl={alternateUrl} />
     <main class="flex-grow pb-40 pt-24 md:pt-32">
       <slot />
@@ -80,10 +90,22 @@ const currentLocale = Astro.currentLocale || 'en';
         }
       };
 
+      const trackPageView = () => {
+        // @ts-ignore
+        if (typeof window.gtag === 'function') {
+          // @ts-ignore
+          window.gtag('config', 'G-6VJZVZ69LN', {
+            page_path: window.location.pathname,
+            page_title: document.title
+          });
+        }
+      };
+
       document.addEventListener('astro:after-swap', updateTheme);
       document.addEventListener('astro:page-load', () => {
         updateTheme();
         initReveal();
+        trackPageView();
       });
     </script>
   </body>

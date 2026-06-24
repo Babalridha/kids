@@ -147,7 +147,17 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
   </div>
 
   <!-- Hero Content -->
-  <div class="relative flex-1 p-8 md:p-20 flex flex-col items-center md:items-start text-center md:text-left z-10 space-y-8 justify-center h-full">
+  <div class="relative flex-1 p-6 md:p-20 flex flex-col items-center md:items-start text-center md:text-left z-10 space-y-5 md:space-y-8 justify-center h-full">
+    <!-- Mobile Feature Image -->
+    <div class="md:hidden w-36 h-36 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/80 dark:border-coffee-800/80 shrink-0">
+       <Image 
+        id="hero-image-mobile"
+        src={HERO_ITEMS[0].image} 
+        class="h-full w-full object-cover animate-in fade-in zoom-in duration-500" 
+        alt="Featured Thumbnail Mobile" 
+       />
+    </div>
+
     <div class="space-y-4">
       <span 
         id="hero-subtitle"
@@ -229,6 +239,7 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
     const description = document.getElementById('hero-description');
     const listenBtn = document.getElementById('hero-listen-btn');
     const heroImage = document.getElementById('hero-image') as HTMLImageElement;
+    const heroImageMobile = document.getElementById('hero-image-mobile') as HTMLImageElement;
     
     const indicators = document.querySelectorAll('.hero-indicator');
     const prevBtn = document.getElementById('hero-prev-btn');
@@ -244,6 +255,7 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
       if (title) title.textContent = item.title;
       if (description) description.textContent = item.description;
       if (heroImage) heroImage.src = getImgSrc(item.image);
+      if (heroImageMobile) heroImageMobile.src = getImgSrc(item.image);
       if (bgMobile) bgMobile.src = getImgSrc(item.image);
 
       // Reset indicators classes
