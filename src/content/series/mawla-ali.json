@@ -1,0 +1,23 @@
+{
+  "name_en": "Mawla Ali Series",
+  "name_fr": "Série Mawla Ali",
+  "color": "#00ADEF",
+  "description_en": "Deeply beautiful series for young hearts about the Lion of Allah.",
+  "description_fr": "Une série profondément magnifique pour les jeunes cœurs sur le Lion d'Allah.",
+  "image_en": "../../assets/images/mNSOaMNI3Lc.jpg",
+  "image_fr": "../../assets/images/mNSOaMNI3Lc.jpg",
+  "locales": ["en", "fr"],
+  "episodes": [
+    {
+      "id": "mawla-ali-1",
+      "title_en": "The Lion of Allah: Mawla Ali (as)",
+      "title_fr": "Le Lion d'Allah : Mawla Ali (as)",
+      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      "thumbnail_en": "../../assets/images/mNSOaMNI3Lc.jpg",
+      "thumbnail_fr": "../../assets/images/mNSOaMNI3Lc.jpg",
+      "duration": "08:45",
+      "description_en": "A beautiful introduction to the first Imam and the hero of Islam.",
+      "description_fr": "Une belle introduction au premier Imam et héros de l'Islam."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name_en": "Ramadhan Series",
+  "name_fr": "Série Ramadan",
+  "color": "#34D399",
+  "description_en": "Special lessons and stories for the holy month of Ramadhan.",
+  "description_fr": "Leçons spéciales et histoires pour le mois sacré du Ramadan.",
+  "image_en": "../../assets/images/g5h07y7msf8.jpg",
+  "image_fr": "../../assets/images/g5h07y7msf8.jpg",
+  "locales": ["en", "fr"],
+  "episodes": [
+    {
+      "id": "ramadhan-1",
+      "title_en": "Welcoming the Guest of Allah",
+      "title_fr": "Accueillir l'invité d'Allah",
+      "audioUrl": "https://www.youtube.com/watch?v=g5h07y7msf8",
+      "thumbnail_en": "../../assets/images/g5h07y7msf8.jpg",
+      "thumbnail_fr": "../../assets/images/g5h07y7msf8.jpg",
+      "duration": "05:45",
+      "description_en": "How to prepare our hearts for the holiest month of the year.",
+      "description_fr": "Comment préparer nos cœurs pour le mois le plus saint de l'année."
+    }
+  ]
+}

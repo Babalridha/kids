@@ -1,0 +1,23 @@
+{
+  "name_en": "Heavenly Ladies Series",
+  "name_fr": "Série Dames Célestes",
+  "color": "#EC4899",
+  "description_en": "Stories of the greatest women in Islam, from Bibi Khadija to Bibi Fatima.",
+  "description_fr": "Histoires des plus grandes femmes de l'Islam, de Bibi Khadija à Bibi Fatima.",
+  "image_en": "../../assets/images/X0ghHtWoM8s.jpg",
+  "image_fr": "../../assets/images/X0ghHtWoM8s.jpg",
+  "locales": ["en", "fr"],
+  "episodes": [
+    {
+      "id": "heavenly-ladies-1",
+      "title_en": "Lady Khadija (sa): The Mother of Believers",
+      "title_fr": "Lady Khadija (sa) : La Mère des Croyants",
+      "audioUrl": "https://www.youtube.com/watch?v=X0ghHtWoM8s",
+      "thumbnail_en": "../../assets/images/X0ghHtWoM8s.jpg",
+      "thumbnail_fr": "../../assets/images/X0ghHtWoM8s.jpg",
+      "duration": "10:15",
+      "description_en": "The story of the great woman who stood by the Prophet (s) through everything.",
+      "description_fr": "L'histoire de la grande femme qui s'est tenue aux côtés du Prophète (s) à travers tout."
+    }
+  ]
+}

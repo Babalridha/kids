@@ -1,0 +1,11 @@
+{
+  "name_en": "Lady of Light Series",
+  "name_fr": "Série Dame de Lumière",
+  "color": "#F43F5E",
+  "description_en": "The virtues and stories of the Lady of Light, Syeda Fatima Zahra (sa).",
+  "description_fr": "Les vertus et histoires de la Dame de Lumière, Syeda Fatima Zahra (sa).",
+  "image_en": "../../assets/images/EzpWMS-GWDA.jpg",
+  "image_fr": "../../assets/images/EzpWMS-GWDA.jpg",
+  "locales": ["en", "fr"],
+  "episodes": []
+}

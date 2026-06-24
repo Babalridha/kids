@@ -71,6 +71,15 @@
 body {
     font-family: 'Quicksand', sans-serif;
     overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body {
+    background-color: #fbf9f4; /* Subtle cream */
+    color: #44403c; /* Stone 700 */
+}
+
+.dark body {
     background-color: #001524; /* Deep navy blue background */
     color: #f0f4f8; /* Soft blue-white text */
 }

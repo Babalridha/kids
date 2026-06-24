@@ -1,9 +1,53 @@
 ---
 import Icon from './Icon.astro';
-import { AUDIOS } from '../data/mockData';
+import { getCollection } from 'astro:content';
+
+const currentLocale = Astro.currentLocale || 'en';
+const localePrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
+
+const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(currentLocale));
+
+const AUDIOS = allSeries.flatMap(s => s.data.episodes.map(ep => {
+  const epThumbnail = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+  return {
+    id: ep.id,
+    title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
+    audioUrl: ep.audioUrl,
+    thumbnail: typeof epThumbnail === 'string' ? epThumbnail : (epThumbnail?.src || ''),
+    category: currentLocale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+    duration: ep.duration,
+    description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en),
+    arabicTitle: ep.arabicTitle
+  };
+}));
+
+const translations = {
+  en: {
+    placeholder: "Search series or stories...",
+    trySearch: "Try searching for:",
+    tags: ['Mawla Ali', 'Fatima', 'Karbala', 'Ramadhan'],
+    noResults: 'No results found for',
+    foundResults: 'Found {count} results'
+  },
+  fr: {
+    placeholder: "Rechercher des séries ou des histoires...",
+    trySearch: "Essayez de rechercher :",
+    tags: ['Mawla Ali', 'Fatima', 'Karbala', 'Ramadan'],
+    noResults: 'Aucun résultat trouvé pour',
+    foundResults: 'Trouvé {count} résultats'
+  }
+};
+const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
 ---
 
-<div id="search-modal" class="fixed inset-0 z-[150] flex items-start justify-center pt-10 md:pt-20 px-4 hidden" data-audios={JSON.stringify(AUDIOS)}>
+<div 
+  id="search-modal" 
+  class="fixed inset-0 z-[150] flex items-start justify-center pt-10 md:pt-20 px-4 hidden" 
+  data-audios={JSON.stringify(AUDIOS)}
+  data-locale-prefix={localePrefix}
+  data-text-no-results={t.noResults}
+  data-text-found={t.foundResults}
+>
   <div id="search-backdrop" class="absolute inset-0 bg-stone-900/60 backdrop-blur-md"></div>
   
   <div class="relative w-full max-w-2xl bg-cream-50 dark:bg-coffee-900 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border-4 border-white dark:border-coffee-800 overflow-hidden animate-slide-down">
@@ -13,7 +57,7 @@ import { AUDIOS } from '../data/mockData';
       <input
         id="search-input"
         type="text"
-        placeholder="Search series or stories..."
+        placeholder={t.placeholder}
         class="flex-grow bg-transparent border-none outline-none text-lg md:text-xl font-bold text-stone-800 dark:text-white placeholder:text-stone-300 dark:placeholder:text-stone-500"
       />
       <button id="close-search-btn" class="p-2 text-stone-400 hover:bg-cream-100 dark:hover:bg-coffee-800 rounded-xl transition-colors">
@@ -25,9 +69,9 @@ import { AUDIOS } from '../data/mockData';
     <div id="search-modal-body" class="max-h-[60vh] overflow-y-auto p-4 custom-scrollbar">
       <!-- Will contain dynamic content -->
       <div id="search-suggestions" class="py-8 text-center space-y-4">
-        <p class="text-stone-400 dark:text-stone-500 font-bold">Try searching for:</p>
+        <p class="text-stone-400 dark:text-stone-500 font-bold">{t.trySearch}</p>
         <div class="flex flex-wrap justify-center gap-2">
-          {['Mawla Ali', 'Fatima', 'Karbala', 'Ramadhan'].map(tag => (
+          {t.tags.map(tag => (
             <button class="suggestion-tag px-4 py-2 bg-cream-100 dark:bg-coffee-800 text-stone-600 dark:text-stone-300 rounded-full text-sm font-bold hover:bg-cream-200 dark:hover:bg-coffee-700 transition-colors" data-tag={tag}>
               {tag}
             </button>
@@ -47,6 +91,10 @@ import { AUDIOS } from '../data/mockData';
     if (!modal) return;
 
     const audios = JSON.parse(modal.getAttribute('data-audios') || '[]');
+    const localePrefix = modal.getAttribute('data-locale-prefix') || '';
+    const textNoResults = modal.getAttribute('data-text-no-results') || 'No results found for';
+    const textFound = modal.getAttribute('data-text-found') || 'Found {count} results';
+
     const backdrop = document.getElementById('search-backdrop');
     const closeBtn = document.getElementById('close-search-btn');
     const input = document.getElementById('search-input') as HTMLInputElement;
@@ -55,16 +103,20 @@ import { AUDIOS } from '../data/mockData';
 
     const openModal = () => {
       modal.classList.remove('hidden');
-      input.value = '';
-      suggestions.classList.remove('hidden');
-      resultsContainer.classList.add('hidden');
-      resultsContainer.innerHTML = '';
-      setTimeout(() => input.focus(), 50);
+      if (input) {
+        input.value = '';
+        setTimeout(() => input.focus(), 50);
+      }
+      suggestions?.classList.remove('hidden');
+      if (resultsContainer) {
+        resultsContainer.classList.add('hidden');
+        resultsContainer.innerHTML = '';
+      }
     };
 
     const closeModal = () => {
       modal.classList.add('hidden');
-      input.value = '';
+      if (input) input.value = '';
     };
 
     // Listen for custom open event
@@ -80,32 +132,35 @@ import { AUDIOS } from '../data/mockData';
       }
     });
 
-    const handleSearch = (query) => {
+    const handleSearch = (query: string) => {
       const q = query.trim().toLowerCase();
       if (!q) {
-        suggestions.classList.remove('hidden');
-        resultsContainer.classList.add('hidden');
-        resultsContainer.innerHTML = '';
+        suggestions?.classList.remove('hidden');
+        if (resultsContainer) {
+          resultsContainer.classList.add('hidden');
+          resultsContainer.innerHTML = '';
+        }
         return;
       }
 
-      suggestions.classList.add('hidden');
-      resultsContainer.classList.remove('hidden');
+      suggestions?.classList.add('hidden');
+      resultsContainer?.classList.remove('hidden');
 
-      const filtered = audios.filter(audio => 
+      const filtered = audios.filter((audio: any) => 
         audio.title.toLowerCase().includes(q) ||
         audio.category.toLowerCase().includes(q) ||
         audio.description.toLowerCase().includes(q) ||
         (audio.arabicTitle && audio.arabicTitle.toLowerCase().includes(q))
       );
 
+      if (!resultsContainer) return;
       resultsContainer.innerHTML = '';
 
       if (filtered.length === 0) {
         resultsContainer.innerHTML = `
           <div class="text-center py-12">
             <span class="text-4xl mb-4 block">🔍</span>
-            <p class="text-stone-500 dark:text-stone-400 font-bold">No results found for "${query}"</p>
+            <p class="text-stone-500 dark:text-stone-400 font-bold">${textNoResults} "${query}"</p>
           </div>
         `;
         return;
@@ -113,10 +168,10 @@ import { AUDIOS } from '../data/mockData';
 
       const countP = document.createElement('p');
       countP.className = "px-4 text-[10px] font-black text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-4";
-      countP.textContent = `Found ${filtered.length} results`;
+      countP.textContent = textFound.replace('{count}', filtered.length.toString());
       resultsContainer.appendChild(countP);
 
-      filtered.forEach(audio => {
+      filtered.forEach((audio: any) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = "group flex items-center gap-4 p-3 md:p-4 hover:bg-cream-100 dark:hover:bg-coffee-800 rounded-2xl md:rounded-3xl transition-all";
         itemDiv.innerHTML = `
@@ -125,7 +180,7 @@ import { AUDIOS } from '../data/mockData';
           </div>
           <div class="flex-grow min-w-0">
             <a 
-              href="/audio/${audio.id}" 
+              href="${localePrefix}/audio/${audio.id}" 
               class="text-sm md:text-lg font-black text-stone-800 dark:text-white leading-tight truncate block group-hover:text-stone-900 dark:group-hover:text-accent-dark"
             >
               ${audio.title}
@@ -135,6 +190,7 @@ import { AUDIOS } from '../data/mockData';
           <button 
             type="button"
             class="play-result-btn p-2 md:p-3 bg-white dark:bg-coffee-800 text-stone-600 dark:text-stone-300 rounded-xl md:rounded-2xl shadow-sm hover:scale-110 transition-transform"
+            aria-label="Play"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
           </button>
@@ -159,7 +215,7 @@ import { AUDIOS } from '../data/mockData';
       });
     };
 
-    input?.addEventListener('input', (e) => {
+    input?.addEventListener('input', (e: any) => {
       handleSearch(e.target.value);
     });
 

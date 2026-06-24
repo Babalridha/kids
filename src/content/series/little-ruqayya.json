@@ -1,0 +1,23 @@
+{
+  "name_en": "Little Ruqayya's Journey Series",
+  "name_fr": "Le Voyage de la Petite Ruqayya",
+  "color": "#A78BFA",
+  "description_en": "The heartbreaking yet inspiring journey of Little Ruqayya from Medina to Damascus.",
+  "description_fr": "Le voyage déchirant mais inspirant de la petite Ruqayya de Médine à Damas.",
+  "image_en": "../../assets/images/5jct11kyEn8.jpg",
+  "image_fr": "../../assets/images/5jct11kyEn8.jpg",
+  "locales": ["en", "fr"],
+  "episodes": [
+    {
+      "id": "ruqayya-1",
+      "title_en": "Little Ruqayya's Journey Begins",
+      "title_fr": "Le voyage de la petite Ruqayya commence",
+      "audioUrl": "https://www.youtube.com/watch?v=5jct11kyEn8",
+      "thumbnail_en": "../../assets/images/5jct11kyEn8.jpg",
+      "thumbnail_fr": "../../assets/images/5jct11kyEn8.jpg",
+      "duration": "07:30",
+      "description_en": "The start of the poignant story of Imam Hussain's (as) beloved daughter.",
+      "description_fr": "Le début de l'histoire poignante de la fille bien-aimée de l'Imam Hussain (as)."
+    }
+  ]
+}

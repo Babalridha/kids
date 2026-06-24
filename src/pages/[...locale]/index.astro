@@ -1,12 +1,84 @@
 ---
 import { Image } from 'astro:assets';
-import Layout from '../layouts/Layout.astro';
-import HeroSlider from '../components/HeroSlider.astro';
-import Icon from '../components/Icon.astro';
-import { CATEGORIES, AUDIOS } from '../data/mockData';
+import Layout from '../../layouts/Layout.astro';
+import HeroSlider from '../../components/HeroSlider.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: undefined } },
+    { params: { locale: 'fr' } }
+  ];
+}
+
+const locale = Astro.currentLocale || 'en';
+const alternateUrl = locale === 'en' ? '/fr' : '/';
+const localePrefix = locale === 'en' ? '' : `/${locale}`;
+
+const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(locale));
+
+const CATEGORIES = allSeries.map(s => ({
+  name: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+  color: s.data.color,
+  description: locale === 'en' ? s.data.description_en : (s.data.description_fr || s.data.description_en),
+  image: locale === 'en' ? s.data.image_en : (s.data.image_fr || s.data.image_en),
+  episodesCount: s.data.episodes.length
+}));
+
+const AUDIOS = allSeries.flatMap(s => s.data.episodes.map(ep => {
+  const epThumbnail = locale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+  return {
+    id: ep.id,
+    title: locale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
+    audioUrl: ep.audioUrl,
+    thumbnail: epThumbnail,
+    category: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+    duration: ep.duration,
+    description: locale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
+  };
+}));
+
+const translations = {
+  en: {
+    title: "Bab Al-Ridha Kids",
+    topSeries: "Top Series",
+    seeAll: "See all series",
+    freshStories: "Fresh Stories",
+    freshDesc: "New additions to keep your hearts growing and minds glowing.",
+    neverMiss: "Never Miss a Story",
+    neverMissDesc: "Join thousands of families in our beautiful journey. Subscribe to get notifications about new series and special resources for parents.",
+    subBtn: "Subscribe",
+    subPlaceholder: "Your email address",
+    subSuccessTitle: "🎉 Welcome to the Family!",
+    subSuccessDesc: "Thank you for joining. Check your inbox soon for beautiful stories and special parent resources.",
+    subAlreadyTitle: "❤️ You're already part of the family!",
+    episodes: "episodes",
+    errorEmail: "Please enter a valid email address.",
+    subscribing: "SUBSCRIBING..."
+  },
+  fr: {
+    title: "Bab Al-Ridha Kids",
+    topSeries: "Top Séries",
+    seeAll: "Voir toutes les séries",
+    freshStories: "Nouvelles Histoires",
+    freshDesc: "De nouveaux ajouts pour faire grandir vos cœurs et briller vos esprits.",
+    neverMiss: "Ne manquez jamais une histoire",
+    neverMissDesc: "Rejoignez des milliers de familles dans notre beau voyage. Abonnez-vous pour recevoir des notifications sur les nouvelles séries et des ressources spéciales pour les parents.",
+    subBtn: "S'abonner",
+    subPlaceholder: "Votre adresse e-mail",
+    subSuccessTitle: "🎉 Bienvenue dans la famille !",
+    subSuccessDesc: "Merci de nous avoir rejoint. Vérifiez votre boîte de réception bientôt pour de belles histoires et des ressources spéciales pour les parents.",
+    subAlreadyTitle: "❤️ Vous faites déjà partie de la famille !",
+    episodes: "épisodes",
+    errorEmail: "Veuillez entrer une adresse e-mail valide.",
+    subscribing: "INSCRIPTION..."
+  }
+};
+const t = translations[locale as 'en' | 'fr'] || translations.en;
 ---
 
-<Layout title="Bab Al-Ridha Kids">
+<Layout title={t.title} alternateUrl={alternateUrl}>
   <div class="max-w-7xl mx-auto px-6 space-y-24 pb-40 pt-4 md:pt-8">
     <div class="reveal">
       <HeroSlider />
@@ -19,10 +91,10 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
            <div class="w-10 h-10 bg-accent-light/30 dark:bg-accent-dark/10 rounded-2xl flex items-center justify-center text-xl shadow-sm">
               <span class="text-amber-500"><Icon name="Sparkles" size={20} /></span>
            </div>
-           <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">Top Series</h2>
+           <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">{t.topSeries}</h2>
         </div>
-        <a href="/categories" class="group flex items-center gap-2 text-stone-500 font-bold hover:text-stone-800 dark:hover:text-white transition-all">
-          See all series 
+        <a href={`${localePrefix}/categories`} class="group flex items-center gap-2 text-stone-500 font-bold hover:text-stone-800 dark:hover:text-white transition-all">
+          {t.seeAll} 
           <span class="group-hover:translate-x-1 transition-transform"><Icon name="ChevronRight" size={18} /></span>
         </a>
       </div>
@@ -30,14 +102,14 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
          {CATEGORIES.slice(0, 5).map(cat => (
            <a 
-            href={`/category/${cat.name}`}
+            href={`${localePrefix}/category/${cat.name}`}
             class="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-coffee-800 shadow-xl hover:scale-105 transition-all duration-500"
            >
-             <Image src={cat.image} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={cat.name} width={400} height={500} />
+             <Image src={cat.image as any} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={cat.name} width={400} height={500} />
              <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent" />
              <div class="absolute bottom-6 left-6 right-6">
-                <h3 class="text-white font-black text-lg leading-tight">{cat.name.split(' ')[0]}</h3>
-                <p class="text-stone-300 text-[10px] font-bold uppercase tracking-widest">{cat.episodes} episodes</p>
+                <h3 class="text-white font-black text-lg leading-tight truncate">{cat.name.split(' ')[0]}</h3>
+                <p class="text-stone-300 text-[10px] font-bold uppercase tracking-widest">{cat.episodesCount} {t.episodes}</p>
              </div>
            </a>
          ))}
@@ -47,14 +119,14 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
     <!-- Fresh Stories Grid -->
     <section class="space-y-10 reveal">
       <div class="flex flex-col gap-2">
-         <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">Fresh Stories</h2>
-         <p class="text-stone-500 dark:text-stone-400 font-medium">New additions to keep your hearts growing and minds glowing.</p>
+         <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">{t.freshStories}</h2>
+         <p class="text-stone-500 dark:text-stone-400 font-medium">{t.freshDesc}</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
          {AUDIOS.map(audio => (
-           <a href={`/audio/${audio.id}`} class="group flex flex-col items-center text-center space-y-6">
+           <a href={`${localePrefix}/audio/${audio.id}`} class="group flex flex-col items-center text-center space-y-6">
               <div class="relative aspect-square w-full rounded-[3.5rem] overflow-hidden shadow-xl group-hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] transition-all duration-700 transform group-hover:-translate-y-3 border-8 border-white dark:border-coffee-800">
-                 <Image src={audio.thumbnail} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={audio.title} width={400} height={400} />
+                 <Image src={audio.thumbnail as any} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={audio.title} width={400} height={400} />
                  <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <div class="w-16 h-16 bg-white/30 backdrop-blur rounded-full flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-transform duration-500">
                        <Icon name="Play" fill="currentColor" size={32} />
@@ -80,30 +152,39 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
       <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200 blur-3xl rounded-full opacity-30" />
       
       <div class="relative z-10 space-y-6">
-        <h2 class="text-4xl md:text-6xl font-black text-stone-800 dark:text-stone-100">Never Miss a Story</h2>
+        <h2 class="text-4xl md:text-6xl font-black text-stone-800 dark:text-stone-100">{t.neverMiss}</h2>
         <p class="text-xl text-stone-500 dark:text-stone-400 font-medium max-w-2xl mx-auto leading-relaxed">
-          Join thousands of families in our beautiful journey. Subscribe to get notifications about new series and special resources for parents.
+          {t.neverMissDesc}
         </p>
       </div>
-      <form id="newsletter-form" class="relative z-10 flex flex-col sm:flex-row gap-4 justify-center items-center max-w-xl mx-auto pt-4" novalidate>
+      <form 
+        id="newsletter-form" 
+        class="relative z-10 flex flex-col sm:flex-row gap-4 justify-center items-center max-w-xl mx-auto pt-4" 
+        novalidate
+        data-loading-text={t.subscribing}
+      >
         <div class="w-full relative">
           <input 
             type="email" 
-            placeholder="Your email address" 
+            placeholder={t.subPlaceholder} 
             required
             class="w-full px-10 py-6 rounded-full bg-white dark:bg-coffee-900 border-none outline-none shadow-sm text-stone-700 dark:text-stone-100 font-bold text-lg ring-4 ring-accent-light/50 dark:ring-accent-dark/5" 
           />
         </div>
         <button type="submit" class="w-full sm:w-auto px-12 py-6 bg-accent-light dark:bg-accent-dark text-stone-900 font-black rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg uppercase whitespace-nowrap">
-          Subscribe
+          {t.subBtn}
         </button>
       </form>
       <div id="newsletter-error" class="relative z-10 hidden text-sm font-black text-rose-400 mt-2">
-         Please enter a valid email address.
+         {t.errorEmail}
       </div>
-      <div id="newsletter-success" class="relative z-10 hidden max-w-xl mx-auto p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 text-center animate-in fade-in slide-in-from-bottom duration-500">
-         <p class="text-2xl font-black text-white mb-2">🎉 Welcome to the Family!</p>
-         <p class="text-stone-200 font-medium">Thank you for joining. Check your inbox soon for beautiful stories and special parent resources.</p>
+      <div 
+        id="newsletter-success" 
+        class="relative z-10 hidden max-w-xl mx-auto p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 text-center animate-in fade-in slide-in-from-bottom duration-500"
+        data-already-text={t.subAlreadyTitle}
+      >
+         <p class="text-2xl font-black text-white mb-2">{t.subSuccessTitle}</p>
+         <p class="text-stone-200 font-medium">{t.subSuccessDesc}</p>
       </div>
     </section>
   </div>
@@ -112,19 +193,22 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
 <script>
   const setupNewsletter = () => {
     const form = document.getElementById('newsletter-form');
-    const input = form?.querySelector('input[type="email"]');
+    const input = form?.querySelector('input[type="email"]') as HTMLInputElement | null;
     const button = form?.querySelector('button');
     const successContainer = document.getElementById('newsletter-success');
     const errorContainer = document.getElementById('newsletter-error');
 
     if (!form || !successContainer) return;
 
+    const loadingText = form.getAttribute('data-loading-text') || 'SUBSCRIBING...';
+    const alreadyText = successContainer.getAttribute('data-already-text') || "❤️ You're already part of the family!";
+
     // Check localStorage for existing subscription
     if (localStorage.getItem('newsletter-subscribed') === 'true') {
       form.classList.add('hidden');
       successContainer.classList.remove('hidden');
       const successTitle = successContainer.querySelector('p');
-      if (successTitle) successTitle.textContent = "❤️ You're already part of the family!";
+      if (successTitle) successTitle.textContent = alreadyText;
     }
 
     form.addEventListener('submit', async (e) => {
@@ -143,7 +227,7 @@ import { CATEGORIES, AUDIOS } from '../data/mockData';
       // Disable inputs and show loading state
       input.disabled = true;
       button.disabled = true;
-      button.textContent = 'SUBSCRIBING...';
+      button.textContent = loadingText;
 
       try {
         // Try submitting to a potential API endpoint

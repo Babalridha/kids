@@ -1,0 +1,23 @@
+{
+  "name_en": "The Shining Sun in a Faraway Land",
+  "name_fr": "Le Soleil Brillant dans un Pays Lointain",
+  "color": "#FBBF24",
+  "description_en": "Imam Ridha (as) Series for 7+ years old, exploring the journey to Khorasan.",
+  "description_fr": "Série sur l'Imam Ridha (as) pour les enfants de 7 ans et plus, explorant le voyage vers le Khorasan.",
+  "image_en": "../../assets/images/jCvaLPiSJ9s.jpg",
+  "image_fr": "../../assets/images/jCvaLPiSJ9s.jpg",
+  "locales": ["en", "fr"],
+  "episodes": [
+    {
+      "id": "shining-sun-1",
+      "title_en": "The Caravan to Khorasan",
+      "title_fr": "La caravane vers le Khorasan",
+      "audioUrl": "https://www.youtube.com/watch?v=jCvaLPiSJ9s",
+      "thumbnail_en": "../../assets/images/jCvaLPiSJ9s.jpg",
+      "thumbnail_fr": "../../assets/images/jCvaLPiSJ9s.jpg",
+      "duration": "12:20",
+      "description_en": "Join the journey of Imam Ridha (as) as he travels to far-off lands.",
+      "description_fr": "Rejoignez le voyage de l'Imam Ridha (as) alors qu'il voyage vers des terres lointaines."
+    }
+  ]
+}

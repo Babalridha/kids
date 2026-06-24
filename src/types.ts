@@ -3,13 +3,13 @@ import type { ImageMetadata } from 'astro';
 export interface AudioContent {
   id: string;
   title: string;
-  youtubeId: string;
+  audioUrl: string;
   thumbnail: ImageMetadata | string;
   category: string; // Now refers to Series name
   series?: string;
   duration: string;
   description: string;
-  dominantColor: string;
+  dominantColor?: string;
   arabicTitle?: string;
 }
 

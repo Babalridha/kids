@@ -1,41 +1,130 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
-import { AUDIOS } from '../data/mockData';
+import { getCollection } from 'astro:content';
+
+const currentLocale = Astro.currentLocale || 'en';
+const localePrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
+
+const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(currentLocale));
+
+// Helper to find an episode by ID and return its localized version
+const findEpisode = (id: string) => {
+  for (const s of allSeries) {
+    const ep = s.data.episodes.find(e => e.id === id);
+    if (ep) {
+      const epThumbnail = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+      return {
+        id: ep.id,
+        title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
+        audioUrl: ep.audioUrl,
+        thumbnail: typeof epThumbnail === 'string' ? epThumbnail : (epThumbnail?.src || ''),
+        category: currentLocale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+        duration: ep.duration,
+        description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
+      };
+    }
+  }
+  return null;
+};
+
+// Fallback to any episode if specific not found
+const getFallbackEpisode = () => {
+  for (const s of allSeries) {
+    if (s.data.episodes.length > 0) {
+      const ep = s.data.episodes[0];
+      const epThumbnail = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+      return {
+        id: ep.id,
+        title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
+        audioUrl: ep.audioUrl,
+        thumbnail: typeof epThumbnail === 'string' ? epThumbnail : (epThumbnail?.src || ''),
+        category: currentLocale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+        duration: ep.duration,
+        description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
+      };
+    }
+  }
+  return null;
+};
+
+const epRamadhan = findEpisode('ramadhan-1') || getFallbackEpisode();
+const epKarbala = findEpisode('shining-sun-1') || getFallbackEpisode();
+const epKhadija = findEpisode('heavenly-ladies-1') || getFallbackEpisode();
+
+const translations = {
+  en: {
+    items: [
+      {
+        title: "Explore the Wonders of Islamic History",
+        subtitle: "Featured Series",
+        description: "Join Prophet Yunus on his incredible journey. Engaging audio stories designed for little hearts and big imaginations.",
+        audio: epRamadhan
+      },
+      {
+        title: "Discover the Brave Hero of Karbala",
+        subtitle: "Nana's Stories",
+        description: "Beautifully narrated glimpses of bravery and faith for our young generation to grow and learn from.",
+        audio: epKarbala
+      },
+      {
+        title: "The Mother of Believers: Bibi Khadija",
+        subtitle: "Heavenly Ladies",
+        description: "Learn about the incredible sacrifice and love of the greatest woman of Islam.",
+        audio: epKhadija
+      }
+    ],
+    listenNow: "Listen Now"
+  },
+  fr: {
+    items: [
+      {
+        title: "Explorez les Merveilles de l'Histoire Islamique",
+        subtitle: "Série Vedette",
+        description: "Rejoignez le prophète Yunus dans son incroyable voyage. Des récits audio captivants conçus pour les petits cœurs et les grandes imaginations.",
+        audio: epRamadhan
+      },
+      {
+        title: "Découvrez le Brave Héros de Karbala",
+        subtitle: "Histoires de Nana",
+        description: "De magnifiques récits d'héroïsme et de foi pour que notre jeune génération grandisse et apprenne.",
+        audio: epKarbala
+      },
+      {
+        title: "La Mère des Croyants : Bibi Khadija",
+        subtitle: "Dames Célestes",
+        description: "Découvrez l'incroyable sacrifice et l'amour de la plus grande femme de l'Islam.",
+        audio: epKhadija
+      }
+    ],
+    listenNow: "Écouter Maintenant"
+  }
+};
+
+const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
+
+// Construct HERO_ITEMS with localized titles and dynamic images
 import img_g5h07y7msf8 from '../assets/images/g5h07y7msf8.jpg';
 import img_6wHDjoVKPwk from '../assets/images/6wHDjoVKPwk.jpg';
 import img_X0ghHtWoM8s from '../assets/images/X0ghHtWoM8s.jpg';
 
-const HERO_ITEMS = [
-  {
-    title: "Explore the Wonders of Islamic History",
-    subtitle: "Featured Series",
-    description: "Join Prophet Yunus on his incredible journey. Engaging audio stories designed for little hearts and big imaginations.",
-    image: img_g5h07y7msf8,
-    audio: AUDIOS[4] || AUDIOS[0] // Ramadhan-1 or Mawla-ali-1
-  },
-  {
-    title: "Discover the Brave Hero of Karbala",
-    subtitle: "Nana's Stories",
-    description: "Beautifully narrated glimpses of bravery and faith for our young generation to grow and learn from.",
-    image: img_6wHDjoVKPwk,
-    audio: AUDIOS[1] || AUDIOS[0]
-  },
-  {
-    title: "The Mother of Believers: Bibi Khadija",
-    subtitle: "Heavenly Ladies",
-    description: "Learn about the incredible sacrifice and love of the greatest woman of Islam.",
-    image: img_X0ghHtWoM8s,
-    audio: AUDIOS[2] || AUDIOS[0]
-  }
-];
+const HERO_IMAGES = [img_g5h07y7msf8, img_6wHDjoVKPwk, img_X0ghHtWoM8s];
+
+const HERO_ITEMS = t.items.map((item, idx) => ({
+  title: item.title,
+  subtitle: item.subtitle,
+  description: item.description,
+  image: HERO_IMAGES[idx],
+  audio: item.audio
+}));
 ---
 
 <section 
   id="hero-slider"
   class="relative h-[600px] w-full rounded-[3rem] border-4 border-white dark:border-coffee-800 overflow-hidden flex flex-col md:flex-row items-center transition-all duration-1000 shadow-xl"
-  style="background-color: rgba(237, 220, 197, 0.45);"
+  style="background-color: rgba(13, 39, 63, 0.45);"
   data-hero-items={JSON.stringify(HERO_ITEMS)}
+  data-locale-prefix={localePrefix}
 >
   <!-- Background Image for Mobile Only -->
   <div class="absolute inset-0 z-0 md:hidden flex items-center justify-center">
@@ -48,12 +137,12 @@ const HERO_ITEMS = [
     <div 
       id="hero-glow-1"
       class="absolute top-0 left-0 w-[45%] h-[45%] blur-[120px] rounded-full transition-all duration-1000 opacity-30" 
-      style="background-color: #eddcc5;" 
+      style="background-color: #0d273f;" 
     />
     <div 
       id="hero-glow-2"
       class="absolute bottom-0 right-0 w-[45%] h-[45%] blur-[120px] rounded-full transition-all duration-1000 opacity-20" 
-      style="background-color: #eddcc5;" 
+      style="background-color: #0d273f;" 
     />
   </div>
 
@@ -63,7 +152,7 @@ const HERO_ITEMS = [
       <span 
         id="hero-subtitle"
         class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest transition-all"
-        style="background-color: rgba(237, 220, 197, 0.25); color: #a16207;"
+        style="background-color: rgba(13, 39, 63, 0.25); color: #eddcc5;"
       >
         {HERO_ITEMS[0].subtitle}
       </span>
@@ -81,7 +170,7 @@ const HERO_ITEMS = [
         class="flex items-center gap-3 px-10 py-5 text-stone-900 font-black rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg"
         style="background-color: #eddcc5;"
       >
-        <Icon name="Play" size={24} fill="currentColor" /> Listen Now
+        <Icon name="Play" size={24} fill="currentColor" /> {t.listenNow}
       </button>
     </div>
 
@@ -91,6 +180,7 @@ const HERO_ITEMS = [
         <button 
           class="hero-indicator h-2 transition-all duration-500 rounded-full w-2"
           data-slide-index={i}
+          aria-label={`Slide ${i + 1}`}
         />
       ))}
     </div>
@@ -106,10 +196,10 @@ const HERO_ITEMS = [
      />
      
      <div class="absolute bottom-16 right-16 flex gap-4">
-        <button id="hero-prev-btn" class="w-12 h-12 bg-white/90 dark:bg-coffee-800/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all text-stone-800 dark:text-stone-100">
+        <button id="hero-prev-btn" class="w-12 h-12 bg-white/90 dark:bg-coffee-800/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all text-stone-800 dark:text-stone-100" aria-label="Previous">
           <Icon name="ChevronLeft" size={24} />
         </button>
-        <button id="hero-next-btn" class="w-12 h-12 bg-white/90 dark:bg-coffee-800/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all text-stone-800 dark:text-stone-100">
+        <button id="hero-next-btn" class="w-12 h-12 bg-white/90 dark:bg-coffee-800/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all text-stone-800 dark:text-stone-100" aria-label="Next">
           <Icon name="ChevronRight" size={24} />
         </button>
      </div>
@@ -124,11 +214,12 @@ const HERO_ITEMS = [
     if (!slider) return;
 
     const heroItems = JSON.parse(slider.getAttribute('data-hero-items') || '[]');
+    const localePrefix = slider.getAttribute('data-locale-prefix') || '';
     if (heroItems.length === 0) return;
 
     let current = 0;
     let dominantColor = '#eddcc5';
-    let timer = null;
+    let timer: any = null;
 
     const bgMobile = document.getElementById('hero-bg-mobile') as HTMLImageElement;
     const glow1 = document.getElementById('hero-glow-1');
@@ -168,7 +259,7 @@ const HERO_ITEMS = [
         }
       });
 
-      const getContrastColor = (hex) => {
+      const getContrastColor = (hex: string) => {
         const r = parseInt(hex.slice(1, 3), 16);
         const g = parseInt(hex.slice(3, 5), 16);
         const b = parseInt(hex.slice(5, 7), 16);
@@ -241,6 +332,7 @@ const HERO_ITEMS = [
       const activeAudio = heroItems[current].audio;
       if (activeAudio) {
         window.dispatchEvent(new CustomEvent('play-audio', { detail: activeAudio }));
+        window.location.assign(`${localePrefix}/audio/${activeAudio.id}`);
       }
     });
 
