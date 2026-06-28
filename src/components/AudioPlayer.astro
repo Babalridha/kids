@@ -38,7 +38,7 @@ import Icon from './Icon.astro';
   </div>
 
   <!-- Floating Capsule Player -->
-  <div id="player-capsule-container" class="fixed bottom-8 left-0 right-0 z-[200] px-4 pointer-events-none hidden">
+  <div id="player-capsule-container" class="fixed bottom-8 left-0 right-0 z-200 px-4 pointer-events-none hidden">
     <div class="max-w-4xl mx-auto bg-white/95 dark:bg-coffee-900/95 backdrop-blur-2xl rounded-full shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-cream-200 dark:border-coffee-800 p-3 flex items-center gap-4 md:gap-8 pointer-events-auto group relative animate-in slide-in-from-bottom duration-500">
       
       <!-- Progress bar with dynamic color -->
@@ -181,7 +181,7 @@ import Icon from './Icon.astro';
     
     if (thumbnailImg) thumbnailImg.src = getImgSrc(currentAudio.thumbnail);
     if (titleEl) titleEl.textContent = currentAudio.title;
-    if (categoryEl) categoryEl.textContent = currentAudio.category.split(' ')[0];
+    if (categoryEl) categoryEl.textContent = currentAudio.category;
 
     if (expandedTitleEl) expandedTitleEl.textContent = currentAudio.title;
     if (expandedCategoryEl) expandedCategoryEl.textContent = currentAudio.category;
