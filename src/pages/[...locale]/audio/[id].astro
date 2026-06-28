@@ -14,13 +14,13 @@ export async function getStaticPaths() {
         paths.push({
           params: {
             locale: undefined,
-            id: ep.id
+            id: ep.slug
           },
           props: { 
             episode: ep, 
             series: s, 
             locale: 'en',
-            alternateUrl: s.data.locales.includes('fr') ? `/fr/audio/${ep.id}` : undefined
+            alternateUrl: s.data.locales.includes('fr') ? `/fr/audio/${ep.slug}` : undefined
           }
         });
       }
@@ -28,13 +28,13 @@ export async function getStaticPaths() {
         paths.push({
           params: {
             locale: 'fr',
-            id: ep.id
+            id: ep.slug
           },
           props: { 
             episode: ep, 
             series: s, 
             locale: 'fr',
-            alternateUrl: s.data.locales.includes('en') ? `/audio/${ep.id}` : undefined
+            alternateUrl: s.data.locales.includes('en') ? `/audio/${ep.slug}` : undefined
           }
         });
       }
@@ -63,33 +63,44 @@ function getContrastColor(hex: string) {
   return hex;
 }
 
+function getPlayButtonTextColor(hex: string) {
+  if (!hex || !hex.startsWith('#') || hex.length !== 7) return '#1c1917';
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.5 ? '#1c1917' : '#ffffff';
+}
+
 const contrastColor = getContrastColor(dominantColor);
 
-const audioTitle = currentLocale === 'en' ? episode.title_en : (episode.title_fr || episode.title_en);
-const audioDesc = currentLocale === 'en' ? episode.description_en : (episode.description_fr || episode.description_en);
-const categoryName = currentLocale === 'en' ? series.data.name_en : (series.data.name_fr || series.data.name_en);
-const episodeThumbnail = currentLocale === 'en' ? episode.thumbnail_en : (episode.thumbnail_fr || episode.thumbnail_en);
+const audioTitle = currentLocale === 'en' ? episode.title.en : (episode.title.fr || episode.title.en);
+const audioDesc = currentLocale === 'en' ? episode.description.en : (episode.description.fr || episode.description.en);
+const categoryName = currentLocale === 'en' ? series.data.title.en : (series.data.title.fr || series.data.title.en);
+const episodeThumbnail = currentLocale === 'en' ? episode.cover.en : (episode.cover.fr || episode.cover.en);
+const audioUrl = currentLocale === 'en' ? episode.audio.en : (episode.audio.fr || episode.audio.en);
 
 const otherEpisodes = series.data.episodes
-  .filter(ep => ep.id !== episode.id)
+  .filter(ep => ep.slug !== episode.slug)
   .slice(0, 3)
   .map(ep => {
-    const epThumb = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+    const epThumb = currentLocale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
+    const epAudio = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
     return {
-      id: ep.id,
-      title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
-      audioUrl: ep.audioUrl,
+      id: ep.slug,
+      title: currentLocale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
+      audioUrl: epAudio,
       thumbnail: typeof epThumb === 'string' ? epThumb : (epThumb?.src || ''),
       category: categoryName,
       duration: ep.duration,
-      description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
+      description: currentLocale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en)
     };
   });
 
 const audioJsonData = {
-  id: episode.id,
+  id: episode.slug,
   title: audioTitle,
-  audioUrl: episode.audioUrl,
+  audioUrl: audioUrl,
   thumbnail: typeof episodeThumbnail === 'string' ? episodeThumbnail : (episodeThumbnail?.src || ''),
   category: categoryName,
   duration: episode.duration,
@@ -121,7 +132,7 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
   <div 
     id="audio-detail-container"
     class="min-h-screen pt-4 pb-48"
-    data-audio-id={episode.id}
+    data-audio-id={episode.slug}
     data-dominant-color={dominantColor}
     data-contrast-color={contrastColor}
     data-audio-json={JSON.stringify(audioJsonData)}
@@ -192,7 +203,7 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
             class="inline-flex items-center gap-2 px-6 py-2 rounded-full text-sm font-black uppercase tracking-widest border"
             style={`background-color: ${dominantColor}20; color: ${contrastColor}; border-color: ${dominantColor}30`}
           >
-             📖 {categoryName}
+          {categoryName}
           </div>
           <h1 class="text-4xl md:text-7xl font-black text-stone-800 dark:text-stone-100 leading-[1.1] tracking-tight">
             {audioTitle}
@@ -205,15 +216,15 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
         <div class="flex flex-wrap items-center justify-center gap-6">
            <button 
               id="details-play-btn"
-              class="flex items-center justify-center w-24 h-24 text-stone-900 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:scale-110 active:scale-95 transition-transform duration-300 animate-in zoom-in duration-500"
-              style={`background-color: ${dominantColor}`}
+              class="flex items-center justify-center w-24 h-24 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:scale-110 active:scale-95 transition-transform duration-300 animate-in zoom-in duration-500"
+              style={`background-color: ${dominantColor}; color: ${getPlayButtonTextColor(dominantColor)};`}
            >
               <!-- Show play or pause details -->
               <span id="details-play-icon"><Icon name="Play" size={44} fill="currentColor" class="ml-1" /></span>
               <span id="details-pause-icon" class="hidden">
                 <span class="flex gap-1">
-                  <span class="w-2 h-8 bg-stone-900 rounded-full"></span>
-                  <span class="w-2 h-8 bg-stone-900 rounded-full"></span>
+                  <span class="w-2 h-8 bg-current rounded-full"></span>
+                  <span class="w-2 h-8 bg-current rounded-full"></span>
                 </span>
               </span>
            </button>
@@ -227,7 +238,7 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
             <h2 class="text-3xl font-black text-stone-800 dark:text-stone-100">{t.seriesCollection}</h2>
             <a 
               id="audio-see-all"
-              href={`${localePrefix}/category/${series.data.name_en}`} 
+              href={`${localePrefix}/category/${series.data.slug}`} 
               class="font-black text-lg hover:text-stone-800 dark:hover:text-white transition-all underline underline-offset-8"
               style={`text-decoration-color: ${dominantColor}`}
             >
@@ -236,27 +247,27 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
              {otherEpisodes.map(item => (
-               <div 
-                  data-audio-id={item.id}
-                  data-audio-json={JSON.stringify(item)}
-                  class="series-collection-card group bg-white dark:bg-coffee-900 p-5 rounded-[3rem] flex items-center gap-5 cursor-pointer hover:shadow-2xl transition-all border-4 border-transparent hover:border-[var(--hover-color)] hover:bg-cream-100/30 dark:hover:bg-coffee-900/50 group-hover:scale-105 active:scale-95"
-                  style={`--hover-color: ${contrastColor};`}
-                >
-                  <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 shadow-md">
-                    <img src={item.thumbnail} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={item.title} />
-                  </div>
-                  <div class="min-w-0 flex-1">
-                    <h4 class="collection-title text-lg font-black truncate text-stone-800 dark:text-stone-100 group-hover:text-[var(--hover-color)] transition-colors" data-ep-id={item.id}>{item.title}</h4>
-                    <p class="text-xs text-stone-400 font-bold uppercase tracking-widest">{t.episode}</p>
-                  </div>
-                  <button 
-                    class="other-play-btn w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors"
-                    style={`background-color: ${dominantColor}20; color: ${contrastColor}`}
-                    aria-label="Play"
-                  >
-                    <Icon name="Play" size={16} fill="currentColor" />
-                  </button>
-               </div>
+                <div 
+                   data-audio-id={item.id}
+                   data-audio-json={JSON.stringify(item)}
+                   class="series-collection-card group bg-white dark:bg-coffee-900 p-5 rounded-[3rem] flex items-center gap-5 cursor-pointer hover:shadow-2xl transition-all border-4 border-transparent hover:border-[var(--hover-color)] hover:bg-cream-100/30 dark:hover:bg-coffee-900/50 group-hover:scale-105 active:scale-95"
+                   style={`--hover-color: ${contrastColor};`}
+                 >
+                   <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 shadow-md">
+                     <img src={item.thumbnail} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={item.title} />
+                   </div>
+                   <div class="min-w-0 flex-1">
+                     <h4 class="collection-title text-lg font-black truncate text-stone-800 dark:text-stone-100 group-hover:text-[var(--hover-color)] transition-colors" data-ep-id={item.id}>{item.title}</h4>
+                     <p class="text-xs text-stone-400 font-bold uppercase tracking-widest">{t.episode}</p>
+                   </div>
+                   <button 
+                     class="other-play-btn w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors"
+                     style={`background-color: ${dominantColor}20; color: ${contrastColor}`}
+                     aria-label="Play"
+                   >
+                     <Icon name="Play" size={16} fill="currentColor" />
+                   </button>
+                </div>
              ))}
           </div>
         </section>
@@ -272,7 +283,7 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
     const container = document.getElementById('audio-detail-container');
     if (!container) return;
 
-    const audioId = container.getAttribute('data-audio-id');
+    const audioId = container.getAttribute('data-audio-id') || '';
     const contrastColor = container.getAttribute('data-contrast-color') || '';
     const audio = JSON.parse(container.getAttribute('data-audio-json') || '{}');
     const localePrefix = container.getAttribute('data-locale-prefix') || '';
@@ -322,7 +333,14 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
           badge.style.color = dynamicContrastColor;
           badge.style.borderColor = color + '30';
         }
-        if (playBtn) playBtn.style.backgroundColor = color;
+        if (playBtn) {
+          playBtn.style.backgroundColor = color;
+          const r = parseInt(color.slice(1, 3), 16);
+          const g = parseInt(color.slice(3, 5), 16);
+          const b = parseInt(color.slice(5, 7), 16);
+          const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          playBtn.style.color = luminance > 0.5 ? '#1c1917' : '#ffffff';
+        }
         if (seeAllLink) seeAllLink.style.textDecorationColor = color;
 
         // Update cards hover colors and play buttons

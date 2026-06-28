@@ -12,6 +12,9 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
+  image: {
+    domains: ['media.kids.babalridha.com']
+  },
   vite: {
     plugins: [tailwindcss()]
   }

@@ -8,16 +8,17 @@ const localePrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
 const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(currentLocale));
 
 const AUDIOS = allSeries.flatMap(s => s.data.episodes.map(ep => {
-  const epThumbnail = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+  const epThumbnail = currentLocale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
+  const epAudio = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
   return {
-    id: ep.id,
-    title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
-    audioUrl: ep.audioUrl,
+    id: ep.slug,
+    title: currentLocale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
+    audioUrl: epAudio,
     thumbnail: typeof epThumbnail === 'string' ? epThumbnail : (epThumbnail?.src || ''),
-    category: currentLocale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+    category: currentLocale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
     duration: ep.duration,
-    description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en),
-    arabicTitle: ep.arabicTitle
+    description: currentLocale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en),
+    arabicTitle: undefined
   };
 }));
 

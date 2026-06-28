@@ -6,119 +6,49 @@ import { getCollection } from 'astro:content';
 const currentLocale = Astro.currentLocale || 'en';
 const localePrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
 
-const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(currentLocale));
-
-// Helper to find an episode by ID and return its localized version
-const findEpisode = (id: string) => {
-  for (const s of allSeries) {
-    const ep = s.data.episodes.find(e => e.id === id);
-    if (ep) {
-      const epThumbnail = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
-      return {
-        id: ep.id,
-        title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
-        audioUrl: ep.audioUrl,
-        thumbnail: typeof epThumbnail === 'string' ? epThumbnail : (epThumbnail?.src || ''),
-        category: currentLocale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
-        duration: ep.duration,
-        description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
-      };
-    }
-  }
-  return null;
-};
-
-// Fallback to any episode if specific not found
-const getFallbackEpisode = () => {
-  for (const s of allSeries) {
-    if (s.data.episodes.length > 0) {
-      const ep = s.data.episodes[0];
-      const epThumbnail = currentLocale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
-      return {
-        id: ep.id,
-        title: currentLocale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
-        audioUrl: ep.audioUrl,
-        thumbnail: typeof epThumbnail === 'string' ? epThumbnail : (epThumbnail?.src || ''),
-        category: currentLocale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
-        duration: ep.duration,
-        description: currentLocale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
-      };
-    }
-  }
-  return null;
-};
-
-const epRamadhan = findEpisode('ramadhan-1') || getFallbackEpisode();
-const epKarbala = findEpisode('shining-sun-1') || getFallbackEpisode();
-const epKhadija = findEpisode('heavenly-ladies-1') || getFallbackEpisode();
+const allSeries = await getCollection('series');
+const glimpsesSeries = allSeries.find(s => s.data.slug === 'glimpses-of-karbala-with-nana');
+const episodesToShow = glimpsesSeries ? glimpsesSeries.data.episodes.slice(0, 3) : [];
 
 const translations = {
   en: {
-    items: [
-      {
-        title: "Explore the Wonders of Islamic History",
-        subtitle: "Featured Series",
-        description: "Join Prophet Yunus on his incredible journey. Engaging audio stories designed for little hearts and big imaginations.",
-        audio: epRamadhan
-      },
-      {
-        title: "Discover the Brave Hero of Karbala",
-        subtitle: "Nana's Stories",
-        description: "Beautifully narrated glimpses of bravery and faith for our young generation to grow and learn from.",
-        audio: epKarbala
-      },
-      {
-        title: "The Mother of Believers: Bibi Khadija",
-        subtitle: "Heavenly Ladies",
-        description: "Learn about the incredible sacrifice and love of the greatest woman of Islam.",
-        audio: epKhadija
-      }
-    ],
-    listenNow: "Listen Now"
+    listenNow: "Listen Now",
+    featuredStory: "Featured Story"
   },
   fr: {
-    items: [
-      {
-        title: "Explorez les Merveilles de l'Histoire Islamique",
-        subtitle: "Série Vedette",
-        description: "Rejoignez le prophète Yunus dans son incroyable voyage. Des récits audio captivants conçus pour les petits cœurs et les grandes imaginations.",
-        audio: epRamadhan
-      },
-      {
-        title: "Découvrez le Brave Héros de Karbala",
-        subtitle: "Histoires de Nana",
-        description: "De magnifiques récits d'héroïsme et de foi pour que notre jeune génération grandisse et apprenne.",
-        audio: epKarbala
-      },
-      {
-        title: "La Mère des Croyants : Bibi Khadija",
-        subtitle: "Dames Célestes",
-        description: "Découvrez l'incroyable sacrifice et l'amour de la plus grande femme de l'Islam.",
-        audio: epKhadija
-      }
-    ],
-    listenNow: "Écouter Maintenant"
+    listenNow: "Écouter Maintenant",
+    featuredStory: "Histoire Vedette"
   }
 };
 
 const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
 
 // Construct HERO_ITEMS with localized titles and dynamic images
-import img_g5h07y7msf8 from '../assets/images/g5h07y7msf8.jpg';
-import img_6wHDjoVKPwk from '../assets/images/6wHDjoVKPwk.jpg';
-import img_X0ghHtWoM8s from '../assets/images/X0ghHtWoM8s.jpg';
-
-const HERO_IMAGES = [img_g5h07y7msf8, img_6wHDjoVKPwk, img_X0ghHtWoM8s];
-
-const HERO_ITEMS = t.items.map((item, idx) => ({
-  title: item.title,
-  subtitle: item.subtitle,
-  description: item.description,
-  image: HERO_IMAGES[idx],
-  audio: item.audio
-}));
+const HERO_ITEMS = glimpsesSeries ? episodesToShow.map((ep) => {
+  const coverUrl = currentLocale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
+  const audioUrl = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
+  const title = currentLocale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en);
+  const description = currentLocale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en);
+  
+  return {
+    title: title,
+    subtitle: t.featuredStory,
+    description: description,
+    image: coverUrl,
+    audio: {
+      id: ep.slug,
+      title: title,
+      audioUrl: audioUrl,
+      thumbnail: coverUrl,
+      category: currentLocale === 'en' ? glimpsesSeries.data.title.en : (glimpsesSeries.data.title.fr || glimpsesSeries.data.title.en),
+      duration: '',
+      description: description
+    }
+  };
+}) : [];
 ---
 
+{HERO_ITEMS.length > 0 && (
 <section 
   id="hero-slider"
   class="relative h-[600px] w-full rounded-[3rem] border-4 border-white dark:border-coffee-800 overflow-hidden flex flex-col md:flex-row items-center transition-all duration-1000 shadow-xl"
@@ -128,7 +58,7 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
 >
   <!-- Background Image for Mobile Only -->
   <div class="absolute inset-0 z-0 md:hidden flex items-center justify-center">
-    <Image id="hero-bg-mobile" src={HERO_ITEMS[0].image} class="w-full h-full object-cover" alt="Hero BG Mobile" />
+    <Image id="hero-bg-mobile" src={HERO_ITEMS[0].image as any} class="w-full h-full object-cover" alt="Hero BG Mobile" width={400} height={600} />
     <div class="absolute inset-0 bg-cream-50/90 dark:bg-coffee-900/80 backdrop-blur-[6px]" />
   </div>
 
@@ -152,9 +82,11 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
     <div class="md:hidden w-36 h-36 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/80 dark:border-coffee-800/80 shrink-0">
        <Image 
         id="hero-image-mobile"
-        src={HERO_ITEMS[0].image} 
+        src={HERO_ITEMS[0].image as any} 
         class="h-full w-full object-cover animate-in fade-in zoom-in duration-500" 
-        alt="Featured Thumbnail Mobile" 
+        alt="Featured Thumbnail Mobile"
+        width={144}
+        height={144}
        />
     </div>
 
@@ -200,9 +132,11 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
   <div class="relative flex-1 hidden md:flex justify-end h-full p-10 z-10">
      <Image 
       id="hero-image"
-      src={HERO_ITEMS[0].image} 
+      src={HERO_ITEMS[0].image as any} 
       class="h-full w-full object-cover rounded-[3rem] shadow-2xl transition-all duration-700 border-4 border-white/40" 
-      alt="Featured Thumbnail" 
+      alt="Featured Thumbnail"
+      width={400}
+      height={400}
      />
      
      <div class="absolute bottom-16 right-16 flex gap-4">
@@ -215,6 +149,7 @@ const HERO_ITEMS = t.items.map((item, idx) => ({
      </div>
   </div>
 </section>
+)}
 
 <script>
   import { getDominantColor } from '../utils/colorExtractor';

@@ -1,0 +1,98 @@
+{
+  "slug": "glimpses-of-karbala-with-nana",
+  "category": {
+    "en": "Karbala"
+  },
+  "locales": ["en", "fr"],
+  "title": {
+    "en": "Glimpses of Karbala with Nana"
+  },
+  "description": {
+    "en": "Glimpses of Karbala told with warmth and wisdom by Nana."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-the-sand-that-turned-red",
+      "title": {
+        "en": "Story 1 - The Sand that turned Red"
+      },
+      "description": {
+        "en": "Story 1 - The Sand that turned Red"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/01.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/01.mp3"
+      },
+      "duration": "08:02"
+    },
+    {
+      "slug": "story-2-its-never-too-late",
+      "title": {
+        "en": "Story 2 - It's never too late"
+      },
+      "description": {
+        "en": "Story 2 - It's never too late"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/02.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/02.mp3"
+      },
+      "duration": "09:57"
+    },
+    {
+      "slug": "story-3-in-the-dark",
+      "title": {
+        "en": "Story 3 - In the Dark"
+      },
+      "description": {
+        "en": "Story 3 - In the Dark"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/03.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/03.mp3"
+      },
+      "duration": "09:55"
+    },
+    {
+      "slug": "story-4-a-letter-from-the-enemy",
+      "title": {
+        "en": "Story 4 - A letter from the enemy"
+      },
+      "description": {
+        "en": "Story 4 - A letter from the enemy"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/04.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/04.mp3"
+      },
+      "duration": "08:57"
+    },
+    {
+      "slug": "story-5-i-only-see-beauty",
+      "title": {
+        "en": "Story 5 - I only see Beauty"
+      },
+      "description": {
+        "en": "Story 5 - I only see Beauty"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/05.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/05.mp3"
+      },
+      "duration": "08:25"
+    }
+  ]
+}

@@ -17,23 +17,25 @@ const allSeries = (await getCollection('series')).filter(s => s.data.locales.inc
 
 // Localize categories and audios for dataset
 const CATEGORIES = allSeries.map(s => ({
-  name: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+  slug: s.data.slug,
+  name: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
   color: s.data.color,
-  description: locale === 'en' ? s.data.description_en : (s.data.description_fr || s.data.description_en),
-  image: locale === 'en' ? s.data.image_en : (s.data.image_fr || s.data.image_en),
+  description: locale === 'en' ? s.data.description.en : (s.data.description.fr || s.data.description.en),
+  image: locale === 'en' ? s.data.cover.en : (s.data.cover.fr || s.data.cover.en),
   episodes: s.data.episodes.length
 }));
 
 const AUDIOS = allSeries.flatMap(s => s.data.episodes.map(ep => {
-  const epThumbnail = locale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+  const epThumbnail = locale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
+  const epAudio = locale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
   return {
-    id: ep.id,
-    title: locale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
-    audioUrl: ep.audioUrl,
+    id: ep.slug,
+    title: locale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
+    audioUrl: epAudio,
     thumbnail: epThumbnail,
-    category: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+    category: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
     duration: ep.duration,
-    description: locale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
+    description: locale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en)
   };
 }));
 
@@ -159,7 +161,7 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
     } catch(e) {}
 
     // Match localized names or IDs
-    const likedSeries = categories.filter((c: any) => savedSeries.includes(c.name));
+    const likedSeries = categories.filter((c: any) => savedSeries.includes(c.slug));
     const likedAudios = audios.filter((a: any) => savedAudios.includes(a.id));
 
     const isEmpty = likedSeries.length === 0 && likedAudios.length === 0;
@@ -182,7 +184,7 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
           const div = document.createElement('div');
           div.className = "group relative aspect-[4/5] rounded-[3rem] overflow-hidden border-4 border-white dark:border-coffee-800 shadow-xl cursor-pointer";
           div.innerHTML = `
-            <a href="${localePrefix}/category/${cat.name}" class="block w-full h-full">
+            <a href="${localePrefix}/category/${cat.slug}" class="block w-full h-full">
               <img src="${getImgSrc(cat.image)}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${cat.name}" />
               <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent"></div>
               <div class="absolute bottom-6 left-6 right-6 text-white font-black leading-tight text-xl">
@@ -190,7 +192,7 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
               </div>
             </a>
             <button 
-              data-cat-name="${cat.name}"
+              data-cat-slug="${cat.slug}"
               class="remove-series-btn absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 z-10"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
@@ -202,9 +204,9 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
           removeBtn?.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const name = removeBtn.getAttribute('data-cat-name');
+            const slug = removeBtn.getAttribute('data-cat-slug');
             let current = JSON.parse(localStorage.getItem('saved-series') || '[]');
-            current = current.filter((x: any) => x !== name);
+            current = current.filter((x: any) => x !== slug);
             localStorage.setItem('saved-series', JSON.stringify(current));
             renderSavedItems();
           });

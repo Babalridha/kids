@@ -18,10 +18,11 @@ const localePrefix = locale === 'en' ? '' : `/${locale}`;
 const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(locale));
 
 const CATEGORIES = allSeries.map(s => ({
-  name: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+  slug: s.data.slug,
+  name: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
   color: s.data.color,
-  description: locale === 'en' ? s.data.description_en : (s.data.description_fr || s.data.description_en),
-  image: locale === 'en' ? s.data.image_en : (s.data.image_fr || s.data.image_en),
+  description: locale === 'en' ? s.data.description.en : (s.data.description.fr || s.data.description.en),
+  image: locale === 'en' ? s.data.cover.en : (s.data.cover.fr || s.data.cover.en),
   episodes: s.data.episodes.length
 }));
 
@@ -56,11 +57,11 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {CATEGORIES.map(cat => (
         <a 
-          href={`${localePrefix}/category/${cat.name}`}
+          href={`${localePrefix}/category/${cat.slug}`}
           class="group relative h-[450px] rounded-[4rem] overflow-hidden border-8 border-white dark:border-coffee-800 shadow-2xl hover:scale-[1.03] transition-all duration-500"
         >
           {/* Note: Image metadata from schema is supported directly in src prop */}
-          <Image src={cat.image as any} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={cat.name} />
+          <Image src={cat.image as any} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={cat.name} inferSize={true} />
           <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent" />
           
           <div class="absolute top-8 left-8">

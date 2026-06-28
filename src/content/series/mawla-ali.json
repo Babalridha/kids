@@ -1,23 +1,114 @@
 {
-  "name_en": "Mawla Ali Series",
-  "name_fr": "Série Mawla Ali",
-  "color": "#00ADEF",
-  "description_en": "Deeply beautiful series for young hearts about the Lion of Allah.",
-  "description_fr": "Une série profondément magnifique pour les jeunes cœurs sur le Lion d'Allah.",
-  "image_en": "../../assets/images/mNSOaMNI3Lc.jpg",
-  "image_fr": "../../assets/images/mNSOaMNI3Lc.jpg",
+  "slug": "mawla-ali",
+  "category": {
+    "en": "Imam Ali"
+  },
   "locales": ["en", "fr"],
+  "title": {
+    "en": "Mawla Ali Series"
+  },
+  "description": {
+    "en": "Deeply beautiful series for young hearts about the Lion of Allah."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/mawla-ali/en/images/cover.jpg"
+  },
   "episodes": [
     {
-      "id": "mawla-ali-1",
-      "title_en": "The Lion of Allah: Mawla Ali (as)",
-      "title_fr": "Le Lion d'Allah : Mawla Ali (as)",
-      "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "thumbnail_en": "../../assets/images/mNSOaMNI3Lc.jpg",
-      "thumbnail_fr": "../../assets/images/mNSOaMNI3Lc.jpg",
-      "duration": "08:45",
-      "description_en": "A beautiful introduction to the first Imam and the hero of Islam.",
-      "description_fr": "Une belle introduction au premier Imam et héros de l'Islam."
+      "slug": "story-1-kaabas-special-guest",
+      "title": {
+        "en": "Story 1 - Kaaba's Special Guest"
+      },
+      "description": {
+        "en": "Story 1 - Kaaba's Special Guest"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/images/01.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/01.mp3"
+      },
+      "duration": "13:15"
+    },
+    {
+      "slug": "story-2-a-shield-against-stones",
+      "title": {
+        "en": "Story 2 - A Shield Against Stones"
+      },
+      "description": {
+        "en": "Story 2 - A Shield Against Stones"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/images/02.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/02.mp3"
+      },
+      "duration": "12:42"
+    },
+    {
+      "slug": "story-3-the-sleep-that-saved-rasulullah",
+      "title": {
+        "en": "Story-3 - The Sleep That Saved Rasulullah"
+      },
+      "description": {
+        "en": "Story 3 - The Sleep That Saved Rasulullah"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/images/03.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/03.mp3"
+      },
+      "duration": "11:42"
+    },
+    {
+      "slug": "story-4-a-strike-of-his-sword",
+      "title": {
+        "en": "Story 4 - A Strike Of His Sword"
+      },
+      "description": {
+        "en": "Story 4 - A Strike Of His Sword"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/images/04.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/04.mp3"
+      },
+      "duration": "14:59"
+    },
+    {
+      "slug": "story-5-the-bravest-warrior",
+      "title": {
+        "en": "Story 5 - The Bravest Warrior"
+      },
+      "description": {
+        "en": "Story 5 - The Bravest Warrior"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/images/05.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/05.mp3"
+      },
+      "duration": "14:59"
+    },
+    {
+      "slug": "story-6-the-hand-that-was-held-high",
+      "title": {
+        "en": "Story 6 - The Hand That Was Held High"
+      },
+      "description": {
+        "en": "Story 6 - The Hand That Was Held High"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/images/06.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/06.mp3"
+      },
+      "duration": "14:19"
     }
   ]
 }

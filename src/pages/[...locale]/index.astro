@@ -19,23 +19,25 @@ const localePrefix = locale === 'en' ? '' : `/${locale}`;
 const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(locale));
 
 const CATEGORIES = allSeries.map(s => ({
-  name: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+  slug: s.data.slug,
+  name: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
   color: s.data.color,
-  description: locale === 'en' ? s.data.description_en : (s.data.description_fr || s.data.description_en),
-  image: locale === 'en' ? s.data.image_en : (s.data.image_fr || s.data.image_en),
+  description: locale === 'en' ? s.data.description.en : (s.data.description.fr || s.data.description.en),
+  image: locale === 'en' ? s.data.cover.en : (s.data.cover.fr || s.data.cover.en),
   episodesCount: s.data.episodes.length
 }));
 
 const AUDIOS = allSeries.flatMap(s => s.data.episodes.map(ep => {
-  const epThumbnail = locale === 'en' ? ep.thumbnail_en : (ep.thumbnail_fr || ep.thumbnail_en);
+  const epThumbnail = locale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
+  const epAudio = locale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
   return {
-    id: ep.id,
-    title: locale === 'en' ? ep.title_en : (ep.title_fr || ep.title_en),
-    audioUrl: ep.audioUrl,
+    id: ep.slug,
+    title: locale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
+    audioUrl: epAudio,
     thumbnail: epThumbnail,
-    category: locale === 'en' ? s.data.name_en : (s.data.name_fr || s.data.name_en),
+    category: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
     duration: ep.duration,
-    description: locale === 'en' ? ep.description_en : (ep.description_fr || ep.description_en)
+    description: locale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en)
   };
 }));
 
@@ -102,13 +104,13 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
          {CATEGORIES.slice(0, 5).map(cat => (
            <a 
-            href={`${localePrefix}/category/${cat.name}`}
+            href={`${localePrefix}/category/${cat.slug}`}
             class="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-coffee-800 shadow-xl hover:scale-105 transition-all duration-500"
            >
              <Image src={cat.image as any} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={cat.name} width={400} height={500} />
-             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent" />
+             <div class="absolute inset-0 bg-linear-to-t from-stone-900/90 via-transparent to-transparent" />
              <div class="absolute bottom-6 left-6 right-6">
-                <h3 class="text-white font-black text-lg leading-tight truncate">{cat.name.split(' ')[0]}</h3>
+                <h3 class="text-white font-black text-lg leading-tight truncate">{cat.name}</h3>
                 <p class="text-stone-300 text-[10px] font-bold uppercase tracking-widest">{cat.episodesCount} {t.episodes}</p>
              </div>
            </a>
