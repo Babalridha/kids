@@ -3,7 +3,9 @@
   "category": {
     "en": "Karbala"
   },
-  "locales": ["en"],
+  "locales": [
+    "en"
+  ],
   "title": {
     "en": "Glimpses of Karbala with Nana"
   },
@@ -26,9 +28,12 @@
         "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/01.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/01.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/01.mp3",
+          "duration": "08:02"
+        }
       },
-      "duration": "08:02"
+      "uploadDate": "2026-05-01"
     },
     {
       "slug": "story-2-its-never-too-late",
@@ -42,9 +47,12 @@
         "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/02.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/02.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/02.mp3",
+          "duration": "09:57"
+        }
       },
-      "duration": "09:57"
+      "uploadDate": "2026-05-02"
     },
     {
       "slug": "story-3-in-the-dark",
@@ -58,9 +66,12 @@
         "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/03.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/03.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/03.mp3",
+          "duration": "09:55"
+        }
       },
-      "duration": "09:55"
+      "uploadDate": "2026-05-03"
     },
     {
       "slug": "story-4-a-letter-from-the-enemy",
@@ -74,9 +85,12 @@
         "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/04.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/04.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/04.mp3",
+          "duration": "08:57"
+        }
       },
-      "duration": "08:57"
+      "uploadDate": "2026-05-04"
     },
     {
       "slug": "story-5-i-only-see-beauty",
@@ -90,9 +104,12 @@
         "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/images/05.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/05.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/glimpses-of-karbala-with-nana/en/audio/05.mp3",
+          "duration": "08:25"
+        }
       },
-      "duration": "08:25"
+      "uploadDate": "2026-05-05"
     }
   ]
 }

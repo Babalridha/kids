@@ -1,0 +1,191 @@
+{
+  "slug": "shaheed-khamenei",
+  "category": {
+    "en": "Shaheed Khamenei"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "Shaheed Khamenei Series"
+  },
+  "description": {
+    "en": "Inspiring stories of bravery, knowledge, and faith from the life of Sayyid Ali Khamenei."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-seeds-of-muqawamah",
+      "title": {
+        "en": "Story 1 - Seeds of Muqawamah"
+      },
+      "description": {
+        "en": "Story 1 - Seeds of Muqawamah"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/01.mp3",
+          "duration": "10:15"
+        }
+      },
+      "uploadDate": "2026-06-28"
+    },
+    {
+      "slug": "story-2-love-of-learning",
+      "title": {
+        "en": "Story 2 - Love of Learning"
+      },
+      "description": {
+        "en": "Story 2 - Love of Learning"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/02.mp3",
+          "duration": "12:23"
+        }
+      },
+      "uploadDate": "2026-06-29"
+    },
+    {
+      "slug": "story-3-a-true-islamic-scholar",
+      "title": {
+        "en": "Story 3 - A true Islamic Scholar"
+      },
+      "description": {
+        "en": "Story 3 - A true Islamic Scholar"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/03.mp3",
+          "duration": "13:05"
+        }
+      },
+      "uploadDate": "2026-06-30"
+    },
+    {
+      "slug": "story-4-kindness-to-parents",
+      "title": {
+        "en": "Story 4 - Kindness to Parents"
+      },
+      "description": {
+        "en": "Story 4 - Kindness to Parents"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/04.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/04.mp3",
+          "duration": "12:48"
+        }
+      },
+      "uploadDate": "2026-07-01"
+    },
+    {
+      "slug": "story-5-behind-bars",
+      "title": {
+        "en": "Story 5 - Behind Bars"
+      },
+      "description": {
+        "en": "Story 5 - Behind Bars"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/05.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/05.mp3",
+          "duration": "13:09"
+        }
+      },
+      "uploadDate": "2026-07-02"
+    },
+    {
+      "slug": "story-6-far-from-home",
+      "title": {
+        "en": "Story 6 - Far from Home"
+      },
+      "description": {
+        "en": "Story 6 - Far from Home"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/06.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/06.mp3",
+          "duration": "13:45"
+        }
+      },
+      "uploadDate": "2026-07-03"
+    },
+    {
+      "slug": "story-7-the-peoples-revolution",
+      "title": {
+        "en": "Story 7 - The People's Revolution"
+      },
+      "description": {
+        "en": "Story 7 - The People's Revolution"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/07.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/07.mp3",
+          "duration": "12:04"
+        }
+      },
+      "uploadDate": "2026-07-04"
+    },
+    {
+      "slug": "story-8-imam-khomeneis-return",
+      "title": {
+        "en": "Story 8 - Imam Khomenei's Return"
+      },
+      "description": {
+        "en": "Story 8 - Imam Khomenei's Return"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/08.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/08.mp3",
+          "duration": "12:13"
+        }
+      },
+      "uploadDate": "2026-07-05"
+    },
+    {
+      "slug": "story-9-protected-by-allah",
+      "title": {
+        "en": "Story 9 - Protected by Allah"
+      },
+      "description": {
+        "en": "Story 9 - Protected by Allah"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/shaheed-khamenei/en/images/09.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/shaheed-khamenei/en/audio/09.mp3",
+          "duration": "11:51"
+        }
+      },
+      "uploadDate": "2026-07-06"
+    }
+  ]
+}

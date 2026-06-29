@@ -1,9 +1,11 @@
 {
   "slug": "lady-of-light",
   "category": {
-    "en": "Lady of Light"
+    "en": "Bibi Fatima"
   },
-  "locales": ["en", "fr"],
+  "locales": [
+    "en"
+  ],
   "title": {
     "en": "Lady of Light Series"
   },
@@ -26,9 +28,12 @@
         "en": "https://media.kids.babalridha.com/lady-of-light/en/images/01.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/01.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/lady-of-light/en/audio/01.mp3",
+          "duration": "09:14"
+        }
       },
-      "duration": "09:14"
+      "uploadDate": "2026-05-20"
     },
     {
       "slug": "story-2-the-shining-chadar",
@@ -42,9 +47,12 @@
         "en": "https://media.kids.babalridha.com/lady-of-light/en/images/02.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/02.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/lady-of-light/en/audio/02.mp3",
+          "duration": "08:13"
+        }
       },
-      "duration": "08:13"
+      "uploadDate": "2026-05-21"
     },
     {
       "slug": "story-3-the-sparkling-necklace",
@@ -58,9 +66,12 @@
         "en": "https://media.kids.babalridha.com/lady-of-light/en/images/03.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/03.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/lady-of-light/en/audio/03.mp3",
+          "duration": "06:39"
+        }
       },
-      "duration": "06:39"
+      "uploadDate": "2026-05-22"
     },
     {
       "slug": "story-4-the-shared-bread",
@@ -74,9 +85,12 @@
         "en": "https://media.kids.babalridha.com/lady-of-light/en/images/04.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/04.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/lady-of-light/en/audio/04.mp3",
+          "duration": "11:27"
+        }
       },
-      "duration": "11:27"
+      "uploadDate": "2026-05-23"
     },
     {
       "slug": "story-5-the-surprising-reply",
@@ -90,9 +104,12 @@
         "en": "https://media.kids.babalridha.com/lady-of-light/en/images/05.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/05.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/lady-of-light/en/audio/05.mp3",
+          "duration": "07:44"
+        }
       },
-      "duration": "07:44"
+      "uploadDate": "2026-05-24"
     },
     {
       "slug": "story-6-the-selfless-charity",
@@ -106,9 +123,12 @@
         "en": "https://media.kids.babalridha.com/lady-of-light/en/images/06.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/06.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/lady-of-light/en/audio/06.mp3",
+          "duration": "08:20"
+        }
       },
-      "duration": "08:20"
+      "uploadDate": "2026-05-25"
     }
   ]
 }

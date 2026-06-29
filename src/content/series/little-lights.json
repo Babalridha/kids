@@ -1,0 +1,115 @@
+{
+  "slug": "little-lights",
+  "category": {
+    "en": "Prophet Muhammad"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "Little Lights from Masjidun-Nabi"
+  },
+  "description": {
+    "en": "Little lights shining from the City of the Prophet, Masjidun-Nabi."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-building-masjidun-nabi",
+      "title": {
+        "en": "Story 1 - Building Masjidun-Nabi"
+      },
+      "description": {
+        "en": "Story 1 - Building Masjidun-Nabi"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/audio/01.mp3",
+          "duration": "10:38"
+        }
+      },
+      "uploadDate": "2026-06-15"
+    },
+    {
+      "slug": "story-2-what-a-quick-prayer",
+      "title": {
+        "en": "Story 2 - What a quick prayer!"
+      },
+      "description": {
+        "en": "Story 2 - What a quick prayer!"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/audio/02.mp3",
+          "duration": "09:31"
+        }
+      },
+      "uploadDate": "2026-06-16"
+    },
+    {
+      "slug": "story-3-a-little-boy-who-loved-dates",
+      "title": {
+        "en": "Story 3 - A little boy who loved dates"
+      },
+      "description": {
+        "en": "Story 3 - A little boy who loved dates"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/audio/03.mp3",
+          "duration": "10:31"
+        }
+      },
+      "uploadDate": "2026-06-17"
+    },
+    {
+      "slug": "story-4-why-is-the-prophet-late",
+      "title": {
+        "en": "Story 4 - Why is the Prophet late?"
+      },
+      "description": {
+        "en": "Story 4 - Why is the Prophet late?"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/images/04.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/audio/04.mp3",
+          "duration": "09:40"
+        }
+      },
+      "uploadDate": "2026-06-18"
+    },
+    {
+      "slug": "story-5-two-groups-in-the-masjid",
+      "title": {
+        "en": "Story 5 - Two groups in the Masjid"
+      },
+      "description": {
+        "en": "Story 5 - Two groups in the Masjid"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/images/05.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-lights-from-masjidun-nabi/en/audio/05.mp3",
+          "duration": "09:42"
+        }
+      },
+      "uploadDate": "2026-06-19"
+    }
+  ]
+}

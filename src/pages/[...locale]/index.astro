@@ -18,28 +18,44 @@ const localePrefix = locale === 'en' ? '' : `/${locale}`;
 
 const allSeries = (await getCollection('series')).filter(s => s.data.locales.includes(locale));
 
-const CATEGORIES = allSeries.map(s => ({
-  slug: s.data.slug,
-  name: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
-  color: s.data.color,
-  description: locale === 'en' ? s.data.description.en : (s.data.description.fr || s.data.description.en),
-  image: locale === 'en' ? s.data.cover.en : (s.data.cover.fr || s.data.cover.en),
-  episodesCount: s.data.episodes.length
-}));
+// Configurable Top Series slugs to show on the homepage (ordered)
+const TOP_SERIES_SLUGS = [
+  'shaheed-khamenei',
+  'glimpses-of-karbala-with-nana',
+  'mawla-ali',
+  'heavenly-ladies',
+  'imam-mahdi-under-6'
+];
+
+const CATEGORIES = TOP_SERIES_SLUGS.map(slug => {
+  const s = allSeries.find(x => x.data.slug === slug);
+  if (!s) return null;
+  return {
+    slug: s.data.slug,
+    name: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
+    color: s.data.color,
+    description: locale === 'en' ? s.data.description.en : (s.data.description.fr || s.data.description.en),
+    image: locale === 'en' ? s.data.cover.en : (s.data.cover.fr || s.data.cover.en),
+    episodesCount: s.data.episodes.length
+  };
+}).filter(Boolean);
 
 const AUDIOS = allSeries.flatMap(s => s.data.episodes.map(ep => {
   const epThumbnail = locale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
-  const epAudio = locale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
+  const epAudioObj = locale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
   return {
     id: ep.slug,
     title: locale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
-    audioUrl: epAudio,
+    audioUrl: epAudioObj?.url || '',
     thumbnail: epThumbnail,
     category: locale === 'en' ? s.data.title.en : (s.data.title.fr || s.data.title.en),
-    duration: ep.duration,
+    duration: epAudioObj?.duration || '',
+    uploadDate: ep.uploadDate,
     description: locale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en)
   };
-}));
+}))
+.sort((a, b) => b.uploadDate.localeCompare(a.uploadDate))
+.slice(0, 8);
 
 const translations = {
   en: {
@@ -149,7 +165,7 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
     </section>
 
     <!-- Family Join Banner -->
-    <section class="relative overflow-hidden bg-cream-100 dark:bg-coffee-800 rounded-[4rem] p-12 md:p-24 text-center space-y-10 border-4 border-white dark:border-coffee-800 shadow-lg reveal">
+    <!-- <section class="relative overflow-hidden bg-cream-100 dark:bg-coffee-800 rounded-[4rem] p-12 md:p-24 text-center space-y-10 border-4 border-white dark:border-coffee-800 shadow-lg reveal">
       <div class="absolute -top-10 -left-10 w-40 h-40 bg-accent-light blur-3xl rounded-full opacity-30" />
       <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200 blur-3xl rounded-full opacity-30" />
       
@@ -188,7 +204,7 @@ const t = translations[locale as 'en' | 'fr'] || translations.en;
          <p class="text-2xl font-black text-white mb-2">{t.subSuccessTitle}</p>
          <p class="text-stone-200 font-medium">{t.subSuccessDesc}</p>
       </div>
-    </section>
+    </section> -->
   </div>
 </Layout>
 

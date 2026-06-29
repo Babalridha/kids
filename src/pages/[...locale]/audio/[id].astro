@@ -78,21 +78,23 @@ const audioTitle = currentLocale === 'en' ? episode.title.en : (episode.title.fr
 const audioDesc = currentLocale === 'en' ? episode.description.en : (episode.description.fr || episode.description.en);
 const categoryName = currentLocale === 'en' ? series.data.title.en : (series.data.title.fr || series.data.title.en);
 const episodeThumbnail = currentLocale === 'en' ? episode.cover.en : (episode.cover.fr || episode.cover.en);
-const audioUrl = currentLocale === 'en' ? episode.audio.en : (episode.audio.fr || episode.audio.en);
+const episodeAudioObj = currentLocale === 'en' ? episode.audio.en : (episode.audio.fr || episode.audio.en);
+const audioUrl = episodeAudioObj?.url || '';
+const audioDuration = episodeAudioObj?.duration || '';
 
 const otherEpisodes = series.data.episodes
   .filter(ep => ep.slug !== episode.slug)
   .slice(0, 3)
   .map(ep => {
     const epThumb = currentLocale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
-    const epAudio = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
+    const epAudioObj = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
     return {
       id: ep.slug,
       title: currentLocale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
-      audioUrl: epAudio,
+      audioUrl: epAudioObj?.url || '',
       thumbnail: typeof epThumb === 'string' ? epThumb : (epThumb?.src || ''),
       category: categoryName,
-      duration: ep.duration,
+      duration: epAudioObj?.duration || '',
       description: currentLocale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en)
     };
   });
@@ -103,7 +105,7 @@ const audioJsonData = {
   audioUrl: audioUrl,
   thumbnail: typeof episodeThumbnail === 'string' ? episodeThumbnail : (episodeThumbnail?.src || ''),
   category: categoryName,
-  duration: episode.duration,
+  duration: audioDuration,
   description: audioDesc
 };
 
@@ -114,7 +116,8 @@ const translations = {
     episode: "Episode",
     shareCopied: "Link copied to clipboard!",
     share: "Share",
-    like: "Like"
+    like: "Like",
+    download: "Download"
   },
   fr: {
     seriesCollection: "Collection de Séries",
@@ -122,7 +125,8 @@ const translations = {
     episode: "Épisode",
     shareCopied: "Lien copié dans le presse-papiers !",
     share: "Partager",
-    like: "Aimer"
+    like: "Aimer",
+    download: "Télécharger"
   }
 };
 const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
@@ -146,6 +150,16 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
           <Icon name="ArrowLeft" size={24} />
         </button>
         <div class="flex items-center gap-3">
+          <a 
+            href={audioUrl}
+            download={`${audioTitle}.mp3`}
+            target="_blank"
+            class="w-12 h-12 bg-white dark:bg-coffee-900 rounded-full flex items-center justify-center text-stone-500 dark:text-stone-100 shadow-sm border border-cream-200 dark:border-coffee-800 hover:scale-110 transition-all hover:text-stone-800 dark:hover:text-white"
+            aria-label={t.download}
+            title={t.download}
+          >
+            <Icon name="Download" size={20} />
+          </a>
           <button 
             id="share-btn"
             data-text-copied={t.shareCopied}

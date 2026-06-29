@@ -52,21 +52,23 @@ const dominantColor = series.data.color || '#0d273f';
 
 const filteredAudios = series.data.episodes.map(ep => {
   const epThumbnail = currentLocale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
-  const epAudio = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
+  const epAudioObj = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
   return {
     id: ep.slug,
     title: currentLocale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en),
-    audioUrl: epAudio,
+    audioUrl: epAudioObj?.url || '',
     thumbnail: epThumbnail,
     category: categoryName,
-    duration: ep.duration,
+    duration: epAudioObj?.duration || '',
     description: currentLocale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en)
   };
 });
 
 let totalSeconds = 0;
 series.data.episodes.forEach(ep => {
-  const parts = ep.duration.split(':');
+  const epAudioObj = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
+  const duration = epAudioObj?.duration || '';
+  const parts = duration.split(':');
   if (parts.length === 2) {
     totalSeconds += parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
   } else if (parts.length === 3) {

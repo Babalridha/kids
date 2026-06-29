@@ -1,0 +1,77 @@
+{
+  "slug": "imam-mahdi-under-6",
+  "category": {
+    "en": "Imam Mahdi (under 6)"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "Imam Mahdi"
+  },
+  "description": {
+    "en": "A fun and easy introduction to Imam Mahdi (ajtf) for younger children."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/images/01.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-the-awaited-night",
+      "title": {
+        "en": "Story 1 - The Awaited Night"
+      },
+      "description": {
+        "en": "Story 1 - The Awaited Night"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/audio/01.mp3",
+          "duration": "08:22"
+        }
+      },
+      "uploadDate": "2026-06-10"
+    },
+    {
+      "slug": "story-2-the-secret",
+      "title": {
+        "en": "Story 2 - The Secret"
+      },
+      "description": {
+        "en": "Story 2 - The Secret"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/audio/02.mp3",
+          "duration": "09:18"
+        }
+      },
+      "uploadDate": "2026-06-11"
+    },
+    {
+      "slug": "story-3-the-hidden-imam",
+      "title": {
+        "en": "Story 3 - The Hidden Imam"
+      },
+      "description": {
+        "en": "Story 3 - The Hidden Imam"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/imam-mahdi-under-6/en/audio/03.mp3",
+          "duration": "10:50"
+        }
+      },
+      "uploadDate": "2026-06-12"
+    }
+  ]
+}

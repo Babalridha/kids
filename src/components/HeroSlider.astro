@@ -7,8 +7,13 @@ const currentLocale = Astro.currentLocale || 'en';
 const localePrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
 
 const allSeries = await getCollection('series');
-const glimpsesSeries = allSeries.find(s => s.data.slug === 'glimpses-of-karbala-with-nana');
-const episodesToShow = glimpsesSeries ? glimpsesSeries.data.episodes.slice(0, 3) : [];
+
+// Configurable featured stories (series slug and 1-based episode number)
+const FEATURED_CONFIG = [
+  { seriesSlug: 'shaheed-khamenei', episodeNumber: 1 },
+  { seriesSlug: 'heavenly-ladies', episodeNumber: 1 },
+  { seriesSlug: 'imam-mahdi-under-6', episodeNumber: 1 }
+];
 
 const translations = {
   en: {
@@ -24,12 +29,19 @@ const translations = {
 const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
 
 // Construct HERO_ITEMS with localized titles and dynamic images
-const HERO_ITEMS = glimpsesSeries ? episodesToShow.map((ep) => {
+const HERO_ITEMS = FEATURED_CONFIG.map(config => {
+  const targetSeries = allSeries.find(s => s.data.slug === config.seriesSlug);
+  if (!targetSeries) return null;
+
+  const ep = targetSeries.data.episodes[config.episodeNumber - 1];
+  if (!ep) return null;
+
   const coverUrl = currentLocale === 'en' ? ep.cover.en : (ep.cover.fr || ep.cover.en);
-  const audioUrl = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
+  const epAudioObj = currentLocale === 'en' ? ep.audio.en : (ep.audio.fr || ep.audio.en);
   const title = currentLocale === 'en' ? ep.title.en : (ep.title.fr || ep.title.en);
   const description = currentLocale === 'en' ? ep.description.en : (ep.description.fr || ep.description.en);
-  
+  const seriesTitle = currentLocale === 'en' ? targetSeries.data.title.en : (targetSeries.data.title.fr || targetSeries.data.title.en);
+
   return {
     title: title,
     subtitle: t.featuredStory,
@@ -38,14 +50,14 @@ const HERO_ITEMS = glimpsesSeries ? episodesToShow.map((ep) => {
     audio: {
       id: ep.slug,
       title: title,
-      audioUrl: audioUrl,
+      audioUrl: epAudioObj?.url || '',
       thumbnail: coverUrl,
-      category: currentLocale === 'en' ? glimpsesSeries.data.title.en : (glimpsesSeries.data.title.fr || glimpsesSeries.data.title.en),
-      duration: '',
+      category: seriesTitle,
+      duration: epAudioObj?.duration || '',
       description: description
     }
   };
-}) : [];
+}).filter(Boolean);
 ---
 
 {HERO_ITEMS.length > 0 && (

@@ -1,0 +1,229 @@
+{
+  "slug": "little-ruqayya",
+  "category": {
+    "en": "Bibi Sakina"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "Little Ruqayya's Journey Series"
+  },
+  "description": {
+    "en": "The heartbreaking yet inspiring journey of Little Ruqayya from Medina to Damascus."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-farewell-madia",
+      "title": {
+        "en": "Story 1 - Farewell Madia"
+      },
+      "description": {
+        "en": "Story 1 - Farewell Madia"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/01.mp3",
+          "duration": "10:02"
+        }
+      },
+      "uploadDate": "2026-06-24"
+    },
+    {
+      "slug": "story-2-towards-makka",
+      "title": {
+        "en": "Story 2 - Towards Makka"
+      },
+      "description": {
+        "en": "Story 2 - Towards Makka"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/02.mp3",
+          "duration": "10:05"
+        }
+      },
+      "uploadDate": "2026-06-25"
+    },
+    {
+      "slug": "story-3-letters-from-kufa",
+      "title": {
+        "en": "Story 3 - Letters From Kufa"
+      },
+      "description": {
+        "en": "Story 3 - Letters From Kufa"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/03.mp3",
+          "duration": "11:38"
+        }
+      },
+      "uploadDate": "2026-06-26"
+    },
+    {
+      "slug": "story-4-the-thirsty-army",
+      "title": {
+        "en": "Story 4 - The Thirsty Army"
+      },
+      "description": {
+        "en": "Story 4 - The Thirsty Army"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/04.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/04.mp3",
+          "duration": "11:23"
+        }
+      },
+      "uploadDate": "2026-06-27"
+    },
+    {
+      "slug": "story-5-reaching-karbala",
+      "title": {
+        "en": "Story 5 - Reaching Karbala"
+      },
+      "description": {
+        "en": "Story 5 - Reaching Karbala"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/05.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/05.mp3",
+          "duration": "11:58"
+        }
+      },
+      "uploadDate": "2026-06-28"
+    },
+    {
+      "slug": "story-6-surrounded",
+      "title": {
+        "en": "Story 6 - Surrounded"
+      },
+      "description": {
+        "en": "Story 6 - Surrounded"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/06.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/06.mp3",
+          "duration": "10:12"
+        }
+      },
+      "uploadDate": "2026-06-29"
+    },
+    {
+      "slug": "story-7-the-day-before-ashura",
+      "title": {
+        "en": "Story 7 - The Day Before Ashura"
+      },
+      "description": {
+        "en": "Story 7 - The Day Before Ashura"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/07.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/07.mp3",
+          "duration": "10:30"
+        }
+      },
+      "uploadDate": "2026-06-30"
+    },
+    {
+      "slug": "story-8-hurr-returns",
+      "title": {
+        "en": "Story 8 - Hurr Returns"
+      },
+      "description": {
+        "en": "Story 8 - Hurr Returns"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/08.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/08.MP3",
+          "duration": "13:59"
+        }
+      },
+      "uploadDate": "2026-07-01"
+    },
+    {
+      "slug": "story-9-the-torn-waterskin",
+      "title": {
+        "en": "Story 9 - The Torn Waterskin"
+      },
+      "description": {
+        "en": "Story 9 - The Torn Waterskin"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/09.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/09.MP3",
+          "duration": "12:59"
+        }
+      },
+      "uploadDate": "2026-07-02"
+    },
+    {
+      "slug": "story-10-labbayk-ya-husayn",
+      "title": {
+        "en": "Story 10 - Labbayk Ya Husayn"
+      },
+      "description": {
+        "en": "Story 10 - Labbayk Ya Husayn"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/10.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/10.mp3",
+          "duration": "13:58"
+        }
+      },
+      "uploadDate": "2026-07-03"
+    },
+    {
+      "slug": "story-11-the-true-winners",
+      "title": {
+        "en": "Story 11 - The True Winners"
+      },
+      "description": {
+        "en": "Story 11 - The True Winners"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/images/11.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/little-ruqayyas-journey/en/audio/11.MP3",
+          "duration": "11:58"
+        }
+      },
+      "uploadDate": "2026-07-04"
+    }
+  ]
+}

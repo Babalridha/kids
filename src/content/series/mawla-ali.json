@@ -3,7 +3,9 @@
   "category": {
     "en": "Imam Ali"
   },
-  "locales": ["en"],
+  "locales": [
+    "en"
+  ],
   "title": {
     "en": "Mawla Ali Series"
   },
@@ -26,9 +28,12 @@
         "en": "https://media.kids.babalridha.com/mawla-ali/en/images/01.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/01.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mawla-ali/en/audio/01.mp3",
+          "duration": "13:15"
+        }
       },
-      "duration": "13:15"
+      "uploadDate": "2026-05-10"
     },
     {
       "slug": "story-2-a-shield-against-stones",
@@ -42,9 +47,12 @@
         "en": "https://media.kids.babalridha.com/mawla-ali/en/images/02.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/02.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mawla-ali/en/audio/02.mp3",
+          "duration": "12:42"
+        }
       },
-      "duration": "12:42"
+      "uploadDate": "2026-05-11"
     },
     {
       "slug": "story-3-the-sleep-that-saved-rasulullah",
@@ -58,9 +66,12 @@
         "en": "https://media.kids.babalridha.com/mawla-ali/en/images/03.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/03.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mawla-ali/en/audio/03.mp3",
+          "duration": "11:42"
+        }
       },
-      "duration": "11:42"
+      "uploadDate": "2026-05-12"
     },
     {
       "slug": "story-4-a-strike-of-his-sword",
@@ -74,9 +85,12 @@
         "en": "https://media.kids.babalridha.com/mawla-ali/en/images/04.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/04.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mawla-ali/en/audio/04.mp3",
+          "duration": "14:59"
+        }
       },
-      "duration": "14:59"
+      "uploadDate": "2026-05-13"
     },
     {
       "slug": "story-5-the-bravest-warrior",
@@ -90,9 +104,12 @@
         "en": "https://media.kids.babalridha.com/mawla-ali/en/images/05.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/05.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mawla-ali/en/audio/05.mp3",
+          "duration": "14:59"
+        }
       },
-      "duration": "14:59"
+      "uploadDate": "2026-05-14"
     },
     {
       "slug": "story-6-the-hand-that-was-held-high",
@@ -106,9 +123,12 @@
         "en": "https://media.kids.babalridha.com/mawla-ali/en/images/06.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mawla-ali/en/audio/06.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mawla-ali/en/audio/06.mp3",
+          "duration": "14:19"
+        }
       },
-      "duration": "14:19"
+      "uploadDate": "2026-05-15"
     }
   ]
 }

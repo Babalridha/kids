@@ -1,0 +1,115 @@
+{
+  "slug": "ramadhan",
+  "category": {
+    "en": "Quranic Stories"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "Ramadhan Series"
+  },
+  "description": {
+    "en": "Special lessons and stories for the holy month of Ramadhan."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/ramadhan/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-the-ark-of-patience",
+      "title": {
+        "en": "Story 1 - The Ark of Patience"
+      },
+      "description": {
+        "en": "Story 1 - The Ark of Patience"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/ramadhan/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/ramadhan/en/audio/01.mp3",
+          "duration": "14:59"
+        }
+      },
+      "uploadDate": "2026-06-18"
+    },
+    {
+      "slug": "story-2-the-mysterious-basket",
+      "title": {
+        "en": "Story 2 - The Mysterious Basket"
+      },
+      "description": {
+        "en": "Story 2 - The Mysterious Basket"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/ramadhan/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/ramadhan/en/audio/02.mp3",
+          "duration": "15:28"
+        }
+      },
+      "uploadDate": "2026-06-19"
+    },
+    {
+      "slug": "story-3-the-brave-man-who-escaped",
+      "title": {
+        "en": "Story 3 - The Brave Man who Escaped"
+      },
+      "description": {
+        "en": "Story 3 - The Brave Man who Escaped"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/ramadhan/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/ramadhan/en/audio/03.mp3",
+          "duration": "14:53"
+        }
+      },
+      "uploadDate": "2026-06-20"
+    },
+    {
+      "slug": "story-4-the-ants-conversation",
+      "title": {
+        "en": "Story 4 - The Ants Conversation"
+      },
+      "description": {
+        "en": "Story 4 - The Ants Conversation"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/ramadhan/en/images/04.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/ramadhan/en/audio/04.mp3",
+          "duration": "14:55"
+        }
+      },
+      "uploadDate": "2026-06-21"
+    },
+    {
+      "slug": "story-5-the-guest-of-the-whale",
+      "title": {
+        "en": "Story 5 - The Guest of The Whale"
+      },
+      "description": {
+        "en": "Story 5 - The Guest of The Whale"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/ramadhan/en/images/05.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/ramadhan/en/audio/05.mp3",
+          "duration": "14:59"
+        }
+      },
+      "uploadDate": "2026-06-22"
+    }
+  ]
+}

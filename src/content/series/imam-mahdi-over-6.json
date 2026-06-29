@@ -1,0 +1,77 @@
+{
+  "slug": "imam-mahdi-over-6",
+  "category": {
+    "en": "Imam Mahdi"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "Imam Mahdi Series (+ 6 years old)"
+  },
+  "description": {
+    "en": "Understanding the Savior of our time for children ages 6 and up."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/images/01.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-the-hidden-gem",
+      "title": {
+        "en": "Story 1 - The Hidden Gem"
+      },
+      "description": {
+        "en": "Story 1 - The Hidden Gem"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/audio/01.mp3",
+          "duration": "13:11"
+        }
+      },
+      "uploadDate": "2026-06-05"
+    },
+    {
+      "slug": "story-2-the-longing-heart",
+      "title": {
+        "en": "Story 2 - The Longing Heart"
+      },
+      "description": {
+        "en": "Story 2 - The Longing Heart"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/audio/02.mp3",
+          "duration": "15:07"
+        }
+      },
+      "uploadDate": "2026-06-06"
+    },
+    {
+      "slug": "story-3-secret-encounters",
+      "title": {
+        "en": "Story 3 - Secret Encounters"
+      },
+      "description": {
+        "en": "Story 3 - Secret Encounters"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/imam-mahdi-6-years/en/audio/03.mp3",
+          "duration": "09:28"
+        }
+      },
+      "uploadDate": "2026-06-07"
+    }
+  ]
+}

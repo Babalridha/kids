@@ -38,10 +38,16 @@ const series = defineCollection({
         fr: z.string().optional()
       }),
       audio: z.object({
-        en: z.string(),
-        fr: z.string().optional()
+        en: z.object({
+          url: z.string(),
+          duration: z.string()
+        }),
+        fr: z.object({
+          url: z.string(),
+          duration: z.string()
+        }).optional()
       }),
-      duration: z.string()
+      uploadDate: z.string()
     }))
   })
 });

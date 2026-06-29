@@ -54,16 +54,13 @@ import Icon from './Icon.astro';
 
       <!-- Thumbnail and Info -->
       <div class="flex items-center gap-3 md:w-1/4">
-        <div id="player-thumbnail-trigger" class="relative cursor-pointer group/thumb">
+        <div id="player-thumbnail-container" class="relative">
           <img 
             id="player-thumbnail-img"
             src="" 
             class="w-12 h-12 rounded-xl object-cover shadow-sm border-2 border-cream-50 dark:border-coffee-800" 
             alt="Playing" 
           />
-          <div class="absolute inset-0 bg-black/40 rounded-xl opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
-            <Icon name="ExternalLink" size={14} class="text-white" />
-          </div>
         </div>
         <div class="min-w-0">
           <h4 id="player-title" class="text-sm font-black text-stone-800 dark:text-stone-100 truncate"></h4>
@@ -73,8 +70,12 @@ import Icon from './Icon.astro';
 
       <!-- Controls -->
       <div class="flex-1 flex items-center justify-center gap-4 md:gap-8">
-        <button class="text-stone-600 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-100 transition-colors">
-          <Icon name="SkipBack" fill="currentColor" size={24} />
+        <button 
+          id="player-rewind-btn"
+          class="p-2 text-stone-600 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-100 transition-colors hover:scale-110 active:scale-90"
+          aria-label="Rewind 10 seconds"
+        >
+          <Icon name="Rewind" fill="currentColor" size={24} />
         </button>
         <button 
           id="player-play-toggle-btn"
@@ -85,8 +86,12 @@ import Icon from './Icon.astro';
           <span id="player-btn-pause"><Icon name="Pause" fill="currentColor" size={28} /></span>
           <span id="player-btn-play" class="hidden"><Icon name="Play" fill="currentColor" size={28} class="ml-1" /></span>
         </button>
-        <button class="text-stone-600 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-100 transition-colors">
-          <Icon name="SkipForward" fill="currentColor" size={24} />
+        <button 
+          id="player-forward-btn"
+          class="p-2 text-stone-600 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-100 transition-colors hover:scale-110 active:scale-90"
+          aria-label="Forward 10 seconds"
+        >
+          <Icon name="FastForward" fill="currentColor" size={24} />
         </button>
       </div>
 
@@ -99,10 +104,15 @@ import Icon from './Icon.astro';
           <Icon name="Maximize2" size={20} />
         </button>
         <div class="flex items-center gap-3">
-          <Icon name="Volume2" size={20} class="text-stone-400" />
-          <div class="w-20 h-1.5 bg-stone-100 dark:bg-coffee-800 rounded-full overflow-hidden">
-             <div id="player-volume-bar" class="h-full w-3/4 transition-all" style="background-color: #eddcc5;" />
-          </div>
+          <Icon name="Volume2" size={20} class="text-stone-400 shrink-0" />
+          <input 
+            type="range" 
+            id="player-volume-slider" 
+            min="0" 
+            max="100" 
+            value="75"
+            class="w-20 h-1 rounded-full appearance-none cursor-pointer outline-none transition-all"
+          />
         </div>
         <button 
           id="player-close-btn"
@@ -157,13 +167,14 @@ import Icon from './Icon.astro';
   
   const progressBar = document.getElementById('player-progress-bar');
   const progressBarContainer = document.getElementById('player-progress-bar-container');
-  const volumeBar = document.getElementById('player-volume-bar');
+  const volumeSlider = document.getElementById('player-volume-slider') as HTMLInputElement;
   
   const expandBtn = document.getElementById('player-expand-btn');
   const minimizeBtn = document.getElementById('player-minimize-btn');
   const closeBtn = document.getElementById('player-close-btn');
   const gotoDetailsBtn = document.getElementById('player-goto-details-btn');
-  const thumbnailTrigger = document.getElementById('player-thumbnail-trigger');
+  const rewindBtn = document.getElementById('player-rewind-btn');
+  const forwardBtn = document.getElementById('player-forward-btn');
 
   const updateUI = () => {
     if (!currentAudio) {
@@ -218,7 +229,11 @@ import Icon from './Icon.astro';
   const updateColors = (color) => {
     dominantColor = color;
     if (progressBar) progressBar.style.backgroundColor = color;
-    if (volumeBar) volumeBar.style.backgroundColor = color;
+    if (volumeSlider) {
+      volumeSlider.style.setProperty('--dominant-color', color);
+      const val = parseInt(volumeSlider.value);
+      updateVolumeSliderBackground(val);
+    }
     if (playToggleBtn) playToggleBtn.style.backgroundColor = color;
     if (gotoDetailsBtn) gotoDetailsBtn.style.backgroundColor = color;
   };
@@ -320,21 +335,54 @@ import Icon from './Icon.astro';
     }
   });
 
-  // Scrub volume
-  const volumeBarContainer = volumeBar?.parentElement;
-  volumeBarContainer?.addEventListener('click', (e) => {
-    const rect = volumeBarContainer.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const width = rect.width;
-    const volume = Math.max(0, Math.min(1, clickX / width));
+  const updateVolumeSliderBackground = (val: number) => {
+    if (volumeSlider) {
+      const color = dominantColor || '#eddcc5';
+      const isDark = document.documentElement.classList.contains('dark');
+      const trackBg = isDark ? '#2c2520' : '#e5e7eb';
+      volumeSlider.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${val}%, ${trackBg} ${val}%, ${trackBg} 100%)`;
+    }
+  };
+
+  // Set initial volume background styling
+  if (volumeSlider) {
+    if (audioElement) {
+      audioElement.volume = 0.75;
+    }
+    updateVolumeSliderBackground(75);
+  }
+
+  // Scrub volume slider
+  volumeSlider?.addEventListener('input', (e) => {
+    const val = parseInt((e.target as HTMLInputElement).value);
+    const volume = val / 100;
 
     if (audioElement) {
       audioElement.volume = volume;
     }
-    if (volumeBar) volumeBar.style.width = `${volume * 100}%`;
+    updateVolumeSliderBackground(val);
 
     if (iframe && iframe.contentWindow && isYouTubeUrl(currentAudio?.audioUrl)) {
       iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setVolume', args: [volume * 100] }), '*');
+    }
+  });
+
+  // Rewind and Forward handlers
+  rewindBtn?.addEventListener('click', () => {
+    if (!currentAudio) return;
+    if (!isYouTubeUrl(currentAudio.audioUrl)) {
+      if (audioElement) {
+        audioElement.currentTime = Math.max(0, audioElement.currentTime - 10);
+      }
+    }
+  });
+
+  forwardBtn?.addEventListener('click', () => {
+    if (!currentAudio) return;
+    if (!isYouTubeUrl(currentAudio.audioUrl)) {
+      if (audioElement && audioElement.duration) {
+        audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 10);
+      }
     }
   });
 
@@ -385,5 +433,37 @@ import Icon from './Icon.astro';
   };
 
   gotoDetailsBtn?.addEventListener('click', handleGoToDetails);
-  thumbnailTrigger?.addEventListener('click', handleGoToDetails);
 </script>
+
+<style is:global>
+  #player-volume-slider {
+    --dominant-color: #eddcc5;
+  }
+  #player-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--dominant-color);
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  #player-volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+  }
+  #player-volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background: var(--dominant-color);
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  #player-volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.25);
+  }
+</style>

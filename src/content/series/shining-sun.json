@@ -1,0 +1,115 @@
+{
+  "slug": "shining-sun",
+  "category": {
+    "en": "Imam Ridha"
+  },
+  "locales": [
+    "en"
+  ],
+  "title": {
+    "en": "The Shining Sun in a Faraway Land"
+  },
+  "description": {
+    "en": "Imam Ridha (as) Series exploring the journey to Khorasan."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-farewell-to-madina",
+      "title": {
+        "en": "Story 1 - Farewell to Madina"
+      },
+      "description": {
+        "en": "Story 1 - Farewell to Madina"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/images/01.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/audio/01.mp3",
+          "duration": "13:45"
+        }
+      },
+      "uploadDate": "2026-06-22"
+    },
+    {
+      "slug": "story-2-the-golden-chain",
+      "title": {
+        "en": "Story 2 - The Golden Chain"
+      },
+      "description": {
+        "en": "Story 2 - The Golden Chain"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/images/02.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/audio/02.mp3",
+          "duration": "14:39"
+        }
+      },
+      "uploadDate": "2026-06-23"
+    },
+    {
+      "slug": "story-3-mamuns-tricks",
+      "title": {
+        "en": "Story 3 - Mamun's Tricks"
+      },
+      "description": {
+        "en": "Story 3 - Mamun's Tricks"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/images/03.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/audio/03.mp3",
+          "duration": "15:22"
+        }
+      },
+      "uploadDate": "2026-06-24"
+    },
+    {
+      "slug": "story-4-the-special-eid-prayer",
+      "title": {
+        "en": "Story 4 - The Special Eid Prayer"
+      },
+      "description": {
+        "en": "Story 4 - The Special Eid Prayer"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/images/04.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/audio/04.mp3",
+          "duration": "13:49"
+        }
+      },
+      "uploadDate": "2026-06-25"
+    },
+    {
+      "slug": "story-5-praying-for-rain",
+      "title": {
+        "en": "Story 5 - Praying for Rain"
+      },
+      "description": {
+        "en": "Story 5 - Praying for Rain"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/images/05.jpg"
+      },
+      "audio": {
+        "en": {
+          "url": "https://media.kids.babalridha.com/the-shining-sun-in-a-faraway-land/en/audio/05.mp3",
+          "duration": "15:00"
+        }
+      },
+      "uploadDate": "2026-06-26"
+    }
+  ]
+}

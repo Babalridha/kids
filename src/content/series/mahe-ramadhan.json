@@ -3,7 +3,9 @@
   "category": {
     "en": "Prophets of Allah"
   },
-  "locales": ["en"],
+  "locales": [
+    "en"
+  ],
   "title": {
     "en": "Mahe Ramadhan Series"
   },
@@ -26,9 +28,12 @@
         "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/images/01.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/01.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/01.mp3",
+          "duration": "10:39"
+        }
       },
-      "duration": "10:39"
+      "uploadDate": "2026-05-15"
     },
     {
       "slug": "story-2-the-grand-competition",
@@ -42,9 +47,12 @@
         "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/images/02.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/02.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/02.mp3",
+          "duration": "13:13"
+        }
       },
-      "duration": "13:13"
+      "uploadDate": "2026-05-16"
     },
     {
       "slug": "story-3-the-amazing-escape",
@@ -58,9 +66,12 @@
         "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/images/03.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/03.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/03.mp3",
+          "duration": "12:42"
+        }
       },
-      "duration": "12:42"
+      "uploadDate": "2026-05-17"
     },
     {
       "slug": "story-4-the-secret-hideout",
@@ -74,9 +85,12 @@
         "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/images/04.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/04.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/04.mp3",
+          "duration": "15:31"
+        }
       },
-      "duration": "15:31"
+      "uploadDate": "2026-05-18"
     },
     {
       "slug": "story-5-the-young-hero",
@@ -90,9 +104,12 @@
         "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/images/05.jpg"
       },
       "audio": {
-        "en": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/05.mp3"
+        "en": {
+          "url": "https://media.kids.babalridha.com/mahe-ramadhan/en/audio/05.mp3",
+          "duration": "12:32"
+        }
       },
-      "duration": "12:32"
+      "uploadDate": "2026-05-19"
     }
   ]
 }
