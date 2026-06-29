@@ -415,10 +415,22 @@ const t = translations[currentLocale as 'en' | 'fr'] || translations.en;
     checkSaved(); // Run once
 
     // 2. Share functionality
-    shareBtn?.addEventListener('click', () => {
-      navigator.clipboard.writeText(window.location.href);
-      const copiedText = shareBtn.getAttribute('data-text-copied') || 'Link copied to clipboard!';
-      alert(copiedText);
+    shareBtn?.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: audio.title || document.title,
+            text: audio.description || '',
+            url: window.location.href
+          });
+        } catch (e) {
+          console.log("Native share cancelled or failed:", e);
+        }
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        const copiedText = shareBtn.getAttribute('data-text-copied') || 'Link copied to clipboard!';
+        alert(copiedText);
+      }
     });
 
     // 3. Audio Player state synchronization
