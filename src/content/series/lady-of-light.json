@@ -1,0 +1,114 @@
+{
+  "slug": "lady-of-light",
+  "category": {
+    "en": "Lady of Light"
+  },
+  "locales": ["en", "fr"],
+  "title": {
+    "en": "Lady of Light Series"
+  },
+  "description": {
+    "en": "Stories from the life of Lady Fatimah al-Zahra (sa)."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/lady-of-light/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-the-secret-dua",
+      "title": {
+        "en": "Story 1 - The Secret Dua"
+      },
+      "description": {
+        "en": "Story 1 - The Secret Dua"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/images/01.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/01.mp3"
+      },
+      "duration": "09:14"
+    },
+    {
+      "slug": "story-2-the-shining-chadar",
+      "title": {
+        "en": "Story 2 - The Shining Chadar"
+      },
+      "description": {
+        "en": "Story 2 - The Shining Chadar"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/images/02.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/02.mp3"
+      },
+      "duration": "08:13"
+    },
+    {
+      "slug": "story-3-the-sparkling-necklace",
+      "title": {
+        "en": "Story 3 - The Sparkling Necklace"
+      },
+      "description": {
+        "en": "Story 3 - The Sparkling Necklace"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/images/03.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/03.mp3"
+      },
+      "duration": "06:39"
+    },
+    {
+      "slug": "story-4-the-shared-bread",
+      "title": {
+        "en": "Story 4 - The Shared Bread"
+      },
+      "description": {
+        "en": "Story 4 - The Shared Bread"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/images/04.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/04.mp3"
+      },
+      "duration": "11:27"
+    },
+    {
+      "slug": "story-5-the-surprising-reply",
+      "title": {
+        "en": "Story 5 - The Surprising Reply"
+      },
+      "description": {
+        "en": "Story 5 - The Surprising Reply"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/images/05.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/05.mp3"
+      },
+      "duration": "07:44"
+    },
+    {
+      "slug": "story-6-the-selfless-charity",
+      "title": {
+        "en": "Story 6 - The Selfless Charity"
+      },
+      "description": {
+        "en": "Story 6 - The Selfless Charity"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/images/06.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/lady-of-light/en/audio/06.mp3"
+      },
+      "duration": "08:20"
+    }
+  ]
+}

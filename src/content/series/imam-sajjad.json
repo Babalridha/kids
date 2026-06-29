@@ -1,0 +1,82 @@
+{
+  "slug": "imam-sajjad",
+  "category": {
+    "en": "Imam Sajjad"
+  },
+  "locales": ["en", "fr"],
+  "title": {
+    "en": "Imam Sajjad Series"
+  },
+  "description": {
+    "en": "Inspiring and beautiful stories from the life of Imam Ali ibn al-Husayn Zain al-Abidin (as)."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/imam-sajjad/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-the-guest-of-the-kaba",
+      "title": {
+        "en": "Story 1 - The Guest of the Ka'ba"
+      },
+      "description": {
+        "en": "Story 1 - The Guest of the Ka'ba"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/images/01.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/audio/01.mp3"
+      },
+      "duration": "14:29"
+    },
+    {
+      "slug": "story-2-the-mysterious-shadow",
+      "title": {
+        "en": "Story 2 - The Mysterious Shadow"
+      },
+      "description": {
+        "en": "Story 2 - The Mysterious Shadow"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/images/02.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/audio/02.mp3"
+      },
+      "duration": "11:28"
+    },
+    {
+      "slug": "story-3-the-helpful-khadim",
+      "title": {
+        "en": "Story 3 - The Helpful Khadim"
+      },
+      "description": {
+        "en": "Story 3 - The Helpful Khadim"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/images/03.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/audio/03.mp3"
+      },
+      "duration": "12:39"
+    },
+    {
+      "slug": "story-4-the-lions-who-obeyed",
+      "title": {
+        "en": "Story 4 - The Lions Who Obeyed"
+      },
+      "description": {
+        "en": "Story 4 - The Lions Who Obeyed"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/images/04.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/imam-sajjad/en/audio/04.mp3"
+      },
+      "duration": "10:52"
+    }
+  ]
+}

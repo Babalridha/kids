@@ -1,0 +1,66 @@
+{
+  "slug": "heavenly-ladies",
+  "category": {
+    "en": "Heavenly Ladies"
+  },
+  "locales": ["en", "fr"],
+  "title": {
+    "en": "Heavenly Ladies Series"
+  },
+  "description": {
+    "en": "Inspiring stories of the greatest ladies in Islamic history."
+  },
+  "cover": {
+    "en": "https://media.kids.babalridha.com/heavenly-ladies/en/images/cover.jpg"
+  },
+  "episodes": [
+    {
+      "slug": "story-1-lady-fatimah",
+      "title": {
+        "en": "Story 1 - Lady Fatimah"
+      },
+      "description": {
+        "en": "Story 1 - Lady Fatimah"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/heavenly-ladies/en/images/01.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/heavenly-ladies/en/audio/01.mp3"
+      },
+      "duration": "10:35"
+    },
+    {
+      "slug": "story-2-lady-maryam",
+      "title": {
+        "en": "Story 2 - Lady Maryam"
+      },
+      "description": {
+        "en": "Story 2 - Lady Maryam"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/heavenly-ladies/en/images/02.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/heavenly-ladies/en/audio/02.mp3"
+      },
+      "duration": "12:19"
+    },
+    {
+      "slug": "story-3-lady-masumah",
+      "title": {
+        "en": "Story 3 - Lady Masumah"
+      },
+      "description": {
+        "en": "Story 3 - Lady Masumah"
+      },
+      "cover": {
+        "en": "https://media.kids.babalridha.com/heavenly-ladies/en/images/03.jpg"
+      },
+      "audio": {
+        "en": "https://media.kids.babalridha.com/heavenly-ladies/en/audio/03.mp3"
+      },
+      "duration": "12:05"
+    }
+  ]
+}
